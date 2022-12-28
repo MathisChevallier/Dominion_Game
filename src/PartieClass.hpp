@@ -6,11 +6,13 @@
 class Partie {
 
     public:
-    int nbJoueur;   
+    int nbJoueur;
+
     Partie();
     ~Partie();
 
     int getNbJoueur();
+    //bool estFinie(); 
 
 };
 
