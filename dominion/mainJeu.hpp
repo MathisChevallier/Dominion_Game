@@ -16,6 +16,7 @@ class MainJeu{
     int m_nbTresorTour = 0;
     int m_nbAchats = 1;
     std::vector<const Carte*> m_cartes;
+    std::vector<const Carte*> m_cartesJouees;
     public:
     static Carte* m_carteStatic; //Carte qui est jouée
     MainJeu();
@@ -24,14 +25,18 @@ class MainJeu{
     int getTresorTour() const;
     int getAchat() const;
     std::vector<const Carte*>& getMain();
+    std::vector<const Carte*>& getCartesJouees();
     void ajouterAction(int n);
     void ajouterTresorTour(int n);
     void ajouterAchat(int n);
     void retirerAction();
     void reinitialiserCompteur();
     std::vector<const Carte*> getListeCartesMain() const;
+    std::vector<const Carte*> getListeCartesJouees() const;
     void ajouterCarteMain(const Carte* const &c);
     void enleverCarteMain(const Carte* const &c);
+    void ajouterCarteJouee(const Carte* const &c);
+    void enleverCarteJouee(const Carte* const &c);
     bool contientCarteAction();
     friend std::ostream& operator<<(std::ostream& os, const MainJeu* const &m);
 };

@@ -12,6 +12,7 @@ class Defausse{
     Defausse();
     ~Defausse();
     std::vector<const Carte*> getListeCartesDefausse() const;
+    void afficher();
     void setListeCartesDefausse(const std::vector<const Carte*> &c);
     void ajouterCarteDefausse(const Carte* const &c);
 };

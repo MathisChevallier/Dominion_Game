@@ -155,6 +155,7 @@ void effetAttaque(){
         if(j == Joueur::j_joueurStatic){}
         else{
             Joueur* jTour = Joueur::j_joueurStatic;
+            Joueur::j_joueurStatic = j;
             bool Reaction = false;
             for(const Carte* c : j->getMainJeu()->getMain()){
                 char choixJ;
@@ -173,7 +174,6 @@ void effetAttaque(){
                 }
             }
             if(Reaction == false){
-                Joueur::j_joueurStatic = j;
                 effetCarte("effet " + MainJeu::m_carteStatic->getNom());
             }
             Joueur::j_joueurStatic = jTour;

@@ -78,6 +78,10 @@ void Joueur::defausserMain(){
         j_main->enleverCarteMain(c);
         j_defausse->ajouterCarteDefausse(c);
     }
+    for(const Carte* c : j_main->getListeCartesJouees()){
+        j_main->enleverCarteJouee(c);
+        j_defausse->ajouterCarteDefausse(c);
+    }
 }
 
 void Joueur::acheterCarte(int i){
@@ -97,6 +101,12 @@ void Joueur::ajouterCarteSurLeDeck(const Carte* const &c){
     j_main->enleverCarteMain(c);
     j_deck->ajouterCarteSurDeck(c);
 }
+
+void Joueur::ajouterACartesJouees(const Carte* const &c){
+    j_main->enleverCarteMain(c);
+    j_main->ajouterCarteJouee(c);
+}
+
 
 void Joueur::phaseAction(){
     std::cout << "\033[4mDébut phase Action :\033[0m" << std::endl;
@@ -130,7 +140,7 @@ void Joueur::phaseAction(){
             j_main->ajouterAction(-1);
             std::cout << (this) << "joue ";
             carteRoyaume[choixCarte-1]->jouerCarte();
-            (this)->defausserCarteDeLaMain(carteRoyaume[choixCarte-1]);
+            (this)->ajouterACartesJouees(carteRoyaume[choixCarte-1]);
         }
         std::cout << (this)->getMainJeu();
     }
@@ -157,6 +167,7 @@ void Joueur::TourDeJeu(int i){
     (this)->phaseAction();
     (this)->phaseAchat();
     (this)->defausserMain();
+    (this)->getDefausse()->afficher();
     (this)->piocherMain();
     std::cout << std::endl;
 }

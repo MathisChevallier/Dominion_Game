@@ -22,6 +22,9 @@ std::vector<const Carte*>& MainJeu::getMain(){
     return m_cartes;
 }
 
+std::vector<const Carte*>& MainJeu::getCartesJouees(){
+    return m_cartesJouees;
+}
 
 void MainJeu::ajouterAction(int n){
     m_nbActionsAJouer += n;
@@ -49,6 +52,9 @@ std::vector<const Carte*> MainJeu::getListeCartesMain() const{
     return m_cartes;
 }
 
+std::vector<const Carte*> MainJeu::getListeCartesJouees() const{
+    return m_cartesJouees;
+}
 
 void MainJeu::ajouterCarteMain(const Carte* const &c){
     m_cartes.push_back(c);
@@ -58,6 +64,19 @@ void MainJeu::enleverCarteMain(const Carte* const &c){
     for (auto it = m_cartes.begin(); it != m_cartes.end(); ++it) {
         if (*it == c) { // Si l'itérateur pointe vers l'élément à supprimer
             m_cartes.erase(it); // Supprime l'élément du vecteur
+            break; 
+        }
+    }
+}
+
+void MainJeu::ajouterCarteJouee(const Carte* const &c){
+    m_cartesJouees.push_back(c);
+}
+
+void MainJeu::enleverCarteJouee(const Carte* const &c){
+    for (auto it = m_cartesJouees.begin(); it != m_cartesJouees.end(); ++it) {
+        if (*it == c) { // Si l'itérateur pointe vers l'élément à supprimer
+            m_cartesJouees.erase(it); // Supprime l'élément du vecteur
             break; 
         }
     }

@@ -33,6 +33,7 @@ class Joueur{
     void ajouterCarteALaMain(const Carte* const &c);
     void ecarterCarteDeLaMain(const Carte* const &c);
     void ajouterCarteSurLeDeck(const Carte* const &c);
+    void ajouterACartesJouees(const Carte* const &c);
     void phaseAction();
     void phaseAchat();
     void TourDeJeu(int i);
