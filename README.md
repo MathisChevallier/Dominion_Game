@@ -18,6 +18,4 @@ finir effet carte
 
 faire fonctionnalité quitter partie et reprendre partie
 
-modifier phase action -> lorsque carte joué ne pas l'ajouter dans la défausse (créer nouveau vector dans main et ajouter la carte)
-
 problème carte Jardin -> carte Victoire ? carte Action ?
