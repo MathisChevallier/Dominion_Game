@@ -5,7 +5,7 @@ int main()
 {
 	Partie* p1 = new Partie();
 	
-	std::cout << "nb de joueur " << p1->getNbJoueur();
+	std::cout << "nb de joueur " << p1->getNbJoueur()<<"\n";
 
 	delete p1;
 
