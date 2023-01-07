@@ -7,7 +7,7 @@ const Tresor *ARGENT = new Tresor("Argent", 3, 2);
 const Tresor *OR     = new Tresor("Or",     6, 3);
 
 // Creation Cartes Victoire
-const Victoire *PROVINCE    = new Victoire("Province"   , 8, 5);
+const Victoire *PROVINCE    = new Victoire("Province"   , 8, 6);
 const Victoire *DUCHE       = new Victoire("Duche"      , 5, 3);
 const Victoire *DOMAINE     = new Victoire("Domaine"    , 2, 1);
 const Victoire *MALEDICTION = new Victoire("Malédiction", 0, -1);
@@ -15,9 +15,9 @@ const Victoire *MALEDICTION = new Victoire("Malédiction", 0, -1);
 
 // Creation Cartes Actions, Action-Attaque, Action-Réaction
 const Action *ATELIER          = new Action("Atelier"           , 3, {"effet Atelier"}, "Recevez une carte coûtant jusqu'à 4 Trésors.");
-const Action *AVENTURIER       = new Action("Aventurier"        , 6, {"effet Aventurier"}, "Dévoilez des cartes de votre deck jusqu'à ce que 2 cartes Trésor soient devoilées. Ajoutez ces cartes Trésor à votre main et de défaussez les autres cartes dévoilées.");
-const Action *BIBLIOTHEQUE     = new Action("Bibliothèque"      , 5, {"effet Bibliothèque"}, "Piochez jusqu'à ce que vous ayez 7 cartes en main. Chaque carte Action piochée peut être mise de côté. Défaussez les cartes mises de côté lorsque vous avez terminé de piocher.");
-const Action *BUCHERON         = new Action("Bucheron"          , 3, {"+1 Achat", "+1 Trésor", "+1 Trésor"}, "+1 Achat ; +2 Tresors");
+const Action *AVENTURIER       = new Action("Aventurier"        , 6, {"effet Aventurier"}, "Dévoilez des cartes de votre deck jusqu'à ce que 2 cartes Trésor soient devoilées. Ajoutez ces cartes Trésor à votre main et défaussez les autres cartes dévoilées.");
+const Action *BIBLIOTHEQUE     = new Action("Bibliothèque"      , 5, {"effet Bibliotheque"}, "Piochez jusqu'à ce que vous ayez 7 cartes en main. Chaque carte Action piochée peut être mise de côté. Défaussez les cartes mises de côté lorsque vous avez terminé de piocher.");
+const Action *BUCHERON         = new Action("Bucheron"          , 3, {"+1 Achat", "+1 Tresor", "+1 Tresor"}, "+1 Achat ; +2 Tresors");
 const Action *CAVE             = new Action("Cave"              , 2, {"+1 Action", "effet Cave"}, "+1 Action ; Défaussez autant de cartes que vous voulez. +1 Carte par carte défaussée.");
 const Action *CHAMBREDUCONSEIL = new Action("Chambre Du Conseil", 5, {"+1 Carte", "+1 Carte", "+1 Carte", "+1 Carte", "+1 Achat", "effet Chambre du conseil"}, "+4 Cartes ;+1 Achat ;Tous vos adversaires piochent 1 carte.");
 const Action *CHANCELIER       = new Action("Chancelier"       , 3, {"+1 Tresor", "+1 Tresor", "effet Chancelier"}, "+2 Trésors ; Vous pouvez immédiatement défausser votre deck.");
@@ -41,6 +41,7 @@ const ActionAttaque *VOLEUR      = new ActionAttaque("Voleur"     , 4, {}, "Tous
         
 const ActionReaction *DOUVES = new ActionReaction("Douves", 2, {"+1 Carte", "+1 Carte"}, "\033[0m+2 Cartes ; \033[34m Lorsqu'un adversaire joue une carte Attaque, vous pouvez dévoiler cette carte de votre main. Dans ce cas, l'Attaque n'a pas d'effet sur vous. \033[0m", {"effet Douves"});
 
+const RoyaumeVictoire *JARDINS = new RoyaumeVictoire("Jardins", 4, {"effet Jardins"}, "\033[32m Vaut 1 Point de Victoire pour chaque 10 cartes dans votre deck (arrondi à l'unité inférieure). \033[0m");
 
 void detruireCartes(){
     delete ATELIER;
@@ -54,6 +55,7 @@ void detruireCartes(){
     delete FESTIN;
     delete FESTIVAL;
     delete FORGERON;
+    delete JARDINS;
     delete LABORATOIRE;
     delete MARCHE;
     delete MINE;

@@ -4,7 +4,10 @@ Carte* MainJeu::m_carteStatic = new Action("",0,{},"");
 
 MainJeu::MainJeu(){}
 
-MainJeu::~MainJeu(){}
+MainJeu::~MainJeu(){
+    m_cartes.clear();
+    m_cartesJouees.clear();
+}
 
 int MainJeu::getActionsAJouer() const{
     return m_nbActionsAJouer;
@@ -101,7 +104,7 @@ std::ostream& operator<<(std::ostream& os, const MainJeu* const &m){
         }
         else if(dynamic_cast<const Victoire*>(c) != nullptr) {
             const Victoire* v = static_cast<const Victoire*>(c);
-            std::cout << "  " << v->getCouleurCarte() << v->getNom() << " : " << v->getValeur() << " Victoire(s)\033[0m" << std::endl; 
+            std::cout << "  " << v->getCouleurCarte() << v->getNom() << " : " << v->getPoints() << " Victoire(s)\033[0m" << std::endl; 
         }
         else{
             const Tresor* t = static_cast<const Tresor*>(c);

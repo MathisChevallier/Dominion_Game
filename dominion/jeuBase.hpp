@@ -4,6 +4,7 @@
 #include "action.hpp"
 #include "actionAttaque.hpp"
 #include "actionReaction.hpp"
+#include "royaumeVictoire.hpp"
 #include "victoire.hpp"
 #include "tresor.hpp"
 
@@ -14,6 +15,8 @@ extern const Action *ATELIER, *AVENTURIER, *BIBLIOTHEQUE, *BUCHERON, *CAVE, *CHA
 extern const ActionAttaque *BUREAUCRATE, *ESPION, *MILICE, *SORCIERE, *VOLEUR;
 
 extern const ActionReaction *DOUVES;
+
+extern const RoyaumeVictoire *JARDINS;
 
 extern const Victoire *PROVINCE, *DUCHE, *DOMAINE, *MALEDICTION; //Jardins; //Jardins action ou victoire ??
 

@@ -2,7 +2,9 @@
 
 Rebut::Rebut():r_cartes({}){}
 
-Rebut::~Rebut(){}
+Rebut::~Rebut(){
+    r_cartes.clear();
+}
 
 void Rebut::ajouterCarteRebut(const Carte* const &c){
     r_cartes.push_back(c);

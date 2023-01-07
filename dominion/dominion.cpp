@@ -4,12 +4,22 @@ Dominion::Dominion():d_parties({}){
     std::cout << "Bienvenue dans Dominion en ligne : " << std::endl;
 }
 
-Dominion::~Dominion(){}
+Dominion::~Dominion(){
+    // Parcours le vecteur de parties
+    delete Partie::p_partieStatic;
+    for (Partie* p : d_parties) {
+        // Libère l'espace mémoire alloué pour chaque partie
+        delete p;
+    }
+    d_parties.clear();
+    //delete MainJeu::m_carteStatic;
+    //delete Joueur::j_joueurStatic;
+}
 
 void Dominion::choixFonctionnalites(){
     while(true){
         std::cout << "Choix de la Fonctionnalités : "      << std::endl;
-        std::cout << "  1 - Créer un nouvelle partie"      << std::endl;
+        std::cout << "  1 - Créer une nouvelle partie"      << std::endl;
         std::cout << "  2 - Reprendre une partie en cours" << std::endl;
         std::cout << "  3 - Quitter Dominion"              << std::endl;
         std::cout << "Indiquez votre choix (1, 2 ou 3) : ";
@@ -45,7 +55,7 @@ void Dominion::creerNouvellePartie(){// Créer nom partie puis demander combien 
     std::cin >> nomPartie;
     Partie* p = new Partie(nomPartie);
     d_parties.push_back(p);
-    static Partie* d_partieStatic = p;    
+    Partie::p_partieStatic = p;    
 
     std::cout << "A combien de joueurs voulez vous jouer (entre 1 et 4) : ";
     int nombreJoueur;
@@ -94,7 +104,7 @@ void Dominion::creerNouvellePartie(){// Créer nom partie puis demander combien 
         listeCarte();
     }
 
-    std::cout << "Partie " << d_partieStatic->getNomPartie() << " a bien été créé." << std::endl << std::endl;   
+    std::cout << "Partie " << Partie::p_partieStatic->getNomPartie() << " a bien été créé." << std::endl << std::endl;   
 
     p->lancerPartie();
 }
@@ -122,7 +132,6 @@ void Dominion::creerIAPartieMulti(Partie* p, int i){
         while(questionAI != 'o' && questionAI != 'n'){
             std::cerr << "\033[1;31m" << questionAI << " n'est pas une réponse convenable. \033[0m" << std::endl;
             std::cout << "Voulez vous jouer avec des IA (o ou n) : ";
-            char questionAI;
             std::cin >> questionAI;
         }
         int nombreAI;
@@ -149,13 +158,24 @@ void Dominion::creerIAPartieMulti(Partie* p, int i){
 void Dominion::reprendrePartieEnCours(){
     if(d_parties.size() == 0){
         std::cout << "Aucune partie n'est en cours." << std::endl << std::endl;
-        std::cout << "La partie reprend" << std::endl;
     }
     else{
         std::cout << "Voici la liste des parties en cours : " << std::endl;
         for(unsigned int i=0;i<d_parties.size();i++){
             std::cout << "  " << i+1 << " - "<< d_parties[i]->getNomPartie() << std::endl;
         }
+        unsigned int choixPartie;
+        std::cout << "Pour reprendre une partie, tapez son numéro sinon tapez 0 : ";
+        std::cin >> choixPartie;
+        while(choixPartie > d_parties.size()){
+            std::cerr << "\033[1;31m" << choixPartie << " n'est pas une réponse convenable. \033[0m" << std::endl;
+            std::cout << "Pour reprendre une partie, tapez son numéro sinon tapez 0 : ";
+            std::cin >> choixPartie;
+        }
+        std::cout << std::endl;
+        if(choixPartie == 0){}
+        else{
+            d_parties[choixPartie-1]->reprendrePartie();
+        }
     }
-    std::cout << std::endl;
 }

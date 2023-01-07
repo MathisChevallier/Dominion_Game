@@ -1,11 +1,11 @@
 #include "victoire.hpp"
 
-Victoire::Victoire(const std::string &nom, int cout, int valeur, const std::string &couleur):Carte(nom, cout, couleur), v_valeur(valeur){}
+Victoire::Victoire(const std::string &nom, int cout, int pointsVictoire, const std::string &couleur):Carte(nom, cout, couleur), v_points(pointsVictoire){}
     
 Victoire::~Victoire(){}
 
-int Victoire::getValeur() const{
-    return v_valeur;
+int Victoire::getPoints() const{
+    return v_points;
 }
 
 void Victoire::jouerCarte() const{

@@ -16,10 +16,14 @@ Deck::Deck(){
     deck_cartes.push_back(DOMAINE);
     deck_cartes.push_back(DOMAINE);
     deck_cartes.push_back(DOMAINE);
+
     (this)->melanger();
 }
     
-Deck::~Deck(){}
+Deck::~Deck(){
+    //On vide le vecteur sans supprimer les cartes
+    deck_cartes.clear();
+}
 
 std::vector<const Carte*> Deck::getListeCartesDeck() const{
     return deck_cartes;

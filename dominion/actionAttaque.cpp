@@ -17,6 +17,6 @@ void ActionAttaque::jouerCarte() const{
     }
     for(std::string s : (this)->getEffetAttaque()){
         //Cet appel permet de pouvoir vérifier lespotentielles cartes ActionReaction dans les mains des adversaires
-        effetCarte("effet Attaque");
+        effetCarte(s);
     }
 }

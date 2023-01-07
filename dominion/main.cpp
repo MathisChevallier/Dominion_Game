@@ -58,6 +58,11 @@ void creerCarte(){
 int main(){
     Dominion* d = new Dominion();
     d->choixFonctionnalites();
+    delete d; // a voir le pb 
+    //delete MainJeu::m_carteStatic;
+    //delete Joueur::j_joueurStatic;
+    //delete Partie::p_partieStatic;
+    detruireCartes();
     /*Partie* p1 = new Partie("hello1");
     static Partie* d_partieStatic = p1;
     std::cout << d_partieStatic->getNomPartie();

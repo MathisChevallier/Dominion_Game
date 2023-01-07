@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <map>
 #include "deck.hpp"
 #include "mainJeu.hpp"
 #include "defausse.hpp"
@@ -24,6 +25,7 @@ class Joueur{
     std::string getNomJoueur() const;
     std::string getCouleurJoueur() const;
     int getPointsVictoire() const;
+    const Carte* devoilerCarte();
     void piocherCarte();
     void piocherMain();
     void defausserCarteDeLaMain(const Carte* const &c);
@@ -31,12 +33,14 @@ class Joueur{
     void defausserMain();
     void acheterCarte(int i);
     void ajouterCarteALaMain(const Carte* const &c);
-    void ecarterCarteDeLaMain(const Carte* const &c);
+    void enleverCarteDeLaMain(const Carte* const &c);
     void ajouterCarteSurLeDeck(const Carte* const &c);
     void ajouterACartesJouees(const Carte* const &c);
     void phaseAction();
     void phaseAchat();
     void TourDeJeu(int i);
+    void ajouterPointsVictoire(int i);
+    int compterPointsVictoire() const;
     friend std::ostream& operator<<(std::ostream& os, const Joueur* const &j);
 };
 
