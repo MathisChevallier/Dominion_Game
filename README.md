@@ -27,3 +27,9 @@ faire fonctionnalité stocker résultat partie (3-Historique parties)
  Création classe RoyaumeVictoire pour la carte JARDINS
 
  Comptage et affichage des points avec détails des points de chaque joueur 
+ 
+ Lancer jeu :
+ 
+ compiler projet : make run
+ 
+ tester fuite mémoire : valgrind -s --leak-check=full ./dominion
