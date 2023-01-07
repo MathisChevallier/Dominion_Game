@@ -14,8 +14,15 @@ achat -> phase achat + effet avec achat
 
 joueur IA -> ajouter priorité aux cartes pour pouvoir les jouer et les acheter + faire tour IA
 
-finir effet carte
+faire fonctionnalité stocker résultat partie (3-Historique parties)
 
-faire fonctionnalité quitter partie et reprendre partie
+## Ajouts :
 
-problème carte Jardin -> carte Victoire ? carte Action ?
+07/01/2023 :
+Système de sauvegarde de partie avec demande à la fin de chaque Tour de jeu
+
+Effets de chaque carte + test carte => AVENTURIER, BIBLIOTHEQUE, BUREAUCRATE, VILLAGE, LABORATOIRE, FESTIVAL, FORGERON, MARCHE, BUCHERON : OK
+
+Création classe RoyaumeVictoire pour la carte JARDINS
+
+Comptage et affichage des points avec détails des points de chaque joueur 
