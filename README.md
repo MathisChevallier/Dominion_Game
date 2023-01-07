@@ -28,7 +28,7 @@ faire fonctionnalité stocker résultat partie (3-Historique parties)
 
  Comptage et affichage des points avec détails des points de chaque joueur 
  
- Lancer jeu :
+ ## Lancer jeu :
  
  compiler projet : make run
  
