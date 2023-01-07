@@ -19,10 +19,11 @@ faire fonctionnalité stocker résultat partie (3-Historique parties)
 ## Ajouts :
 
 07/01/2023 :
-Système de sauvegarde de partie avec demande à la fin de chaque Tour de jeu
 
-Effets de chaque carte + test carte => AVENTURIER, BIBLIOTHEQUE, BUREAUCRATE, VILLAGE, LABORATOIRE, FESTIVAL, FORGERON, MARCHE, BUCHERON : OK
+ Système de sauvegarde de partie avec demande à la fin de chaque Tour de jeu
 
-Création classe RoyaumeVictoire pour la carte JARDINS
+ Effets de chaque carte + test carte => AVENTURIER, BIBLIOTHEQUE, BUREAUCRATE, VILLAGE, LABORATOIRE, FESTIVAL, FORGERON, MARCHE, BUCHERON : OK
 
-Comptage et affichage des points avec détails des points de chaque joueur 
+ Création classe RoyaumeVictoire pour la carte JARDINS
+
+ Comptage et affichage des points avec détails des points de chaque joueur 
