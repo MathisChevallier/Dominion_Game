@@ -4,7 +4,7 @@ Victoire::Victoire(const std::string &nom, int cout, int valeur, const std::stri
     
 Victoire::~Victoire(){}
 
-int Victoire::getValeur() const{
+int Victoire::getPoints() const{
     return v_valeur;
 }
 

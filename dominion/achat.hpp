@@ -19,7 +19,7 @@ class Achat{
     std::vector<const Carte*> victoires_duche;
     std::vector<const Carte*> victoires_domaine;
     std::vector<const Carte*> victoires_malediction;
-    std::vector< std::vector<const Carte*> > tab_royaumes;
+    std::vector< std::vector<const Royaume*> > tab_royaumes;
     
 
     public:

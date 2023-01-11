@@ -1,6 +1,6 @@
 #include "partie.hpp"
 
-std::vector<const Carte*> Partie::p_cartes_utilisees = {};
+std::vector<const Royaume*> Partie::p_cartes_utilisees = {};
 
 Partie* Partie::p_partieStatic = new Partie("");
 
@@ -78,12 +78,11 @@ bool Partie::finPartie(){
     return false;
 }
 
-void Partie::choixCarteAleatoirePourAchat(std::vector<const Carte*> cartesPartie){
+void Partie::choixCarteAleatoirePourAchat(std::vector<const Royaume*> cartesPartie){
     //le tableau en argument est deja melange
     for(size_t i = 0; i<10; i++){
         p_cartes_utilisees.push_back(cartesPartie.at(i));
     }
-    std::cout << "YOOO\n";
 }
 
 

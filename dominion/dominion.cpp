@@ -72,7 +72,8 @@ void Dominion::creerNouvellePartie(){// Créer nom partie puis demander combien 
     }
 
     //creation du jeu de base
-    std::vector<const Carte*> cartesPartie = {};
+    std::vector<const Royaume*> cartesPartie = {};
+    //changer les cartes
     cartesPartie.push_back(ATELIER);
     cartesPartie.push_back(BUCHERON);
     cartesPartie.push_back(CAVE);
@@ -110,7 +111,6 @@ void Dominion::creerNouvellePartie(){// Créer nom partie puis demander combien 
     }
 
     Achat* a = new Achat();
-    a->afficherLigneAchat();
     a->completerLigneAchatGauche(nombreJoueur);
     if(choixCarte == 1){
         //(this)->choixManuelCarte(cartesPartie);
@@ -120,6 +120,8 @@ void Dominion::creerNouvellePartie(){// Créer nom partie puis demander combien 
         listeCarte();
     }
     a->completerLigneAchatCentreAuto(nombreJoueur);
+    a->afficherLigneAchat();
+
 
     std::cout << "Partie " << d_partieStatic->getNomPartie() << " a bien été créé." << std::endl << std::endl;   
 

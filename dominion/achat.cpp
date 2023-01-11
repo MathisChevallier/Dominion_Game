@@ -37,13 +37,23 @@ Achat::Achat():tresors_or({}),tresors_argent({}),tresors_cuivre({}),victoires_pr
     std::vector<const Carte*>& Achat::getVictoires_malediction(){return victoires_malediction;}
 
     void Achat::afficherLigneAchat(){
-        std::cout<<"taille tresors_or: "<< tresors_or.size()<<"\n";
-        std::cout<<"taille tresors_argent: "<< tresors_argent.size()<<"\n";
-        std::cout<<"taille tresors_cuivre: "<< tresors_cuivre.size()<<"\n";
-        std::cout<<"taille victoires_province: "<< victoires_province.size()<<"\n";
-        std::cout<<"taille victoires_duche: "<< victoires_duche.size()<<"\n";
-        std::cout<<"taille victoires_domaine: "<< victoires_domaine.size()<<"\n";
-        std::cout<<"taille victoires_malediction: "<< victoires_malediction.size()<<"\n";
+        std::cout<<"Voici la ligne d'achat : \n";
+        std::cout<< OR <<"       -> Cartes restantes: " <<tresors_or.size()<<" | Cout: " <<OR->getCout()<< "\n";
+        std::cout<< ARGENT <<"   -> Cartes restantes: " <<tresors_argent.size()<<" | Cout: " <<ARGENT->getCout()<< "\n";
+        std::cout<< CUIVRE <<"   -> Cartes restantes: " <<tresors_cuivre.size()<<" | Cout: " <<CUIVRE->getCout()<< "\n";
+        std::cout<< PROVINCE <<" -> Cartes restantes: " <<victoires_province.size()<<" | Points: " <<PROVINCE->getPoints()<< "\n";
+        std::cout<< DUCHE <<"    -> Cartes restantes: " <<victoires_duche.size()<<" | Points: " <<DUCHE->getPoints()<< "\n";
+        std::cout<< DOMAINE <<"  -> Cartes restantes: " <<victoires_domaine.size()<<" | Points: " <<DOMAINE->getPoints()<< "\n";
+        std::cout<< MALEDICTION <<" -> Cartes restantes: " <<victoires_malediction.size()<<" | Points: " <<MALEDICTION->getPoints()<< "\n";
+     
+        for (size_t i = 0; i<tab_royaumes.size(); i++){
+            if(tab_royaumes.at(i).size()>0){
+                std::cout<< tab_royaumes.at(i).at(0) << " -> Cartes restantes: " << tab_royaumes.at(i).size()<< " | Cout: "<<tab_royaumes.at(i).at(0)->getCout() << " | effet: "<< tab_royaumes.at(i).at(0)->getDescriptionEffet()<< std::endl;
+            }else {
+                std::cout<< "Pile vide.\n";
+            }
+        }
+
     }
 
     void Achat::completerLigneAchatGauche(int nombreJoueur){
@@ -65,30 +75,33 @@ Achat::Achat():tresors_or({}),tresors_argent({}),tresors_cuivre({}),victoires_pr
     }
 
     void Achat::completerLigneAchatCentreAuto(int nombreJoueur){
-        std::cout<< nombreJoueur << "taille getCartesUtilisees: " << Partie::p_cartes_utilisees.size() << std::endl;
-        std::cout<< "taille(0): " << Partie::p_cartes_utilisees.at(0) << std::endl;
-        std::cout<< "taille(9): " << Partie::p_cartes_utilisees.at(9) << std::endl;
         for(size_t i = 0; i<Partie::p_cartes_utilisees.size(); i++){
-            /*
-            if(Partie::p_cartes_utilisees.at(i)->getNom() == "Jardin"){
+            //Jardin !!!
+            if(Partie::p_cartes_utilisees.at(i)->getNom() == "Sorciere"){
                 if(nombreJoueur==2){
                     for(size_t j = 0; j<8; j++){
-                        tab_royaumes.at(i).push_back(JARDIN);
+                        tab_royaumes.at(i).push_back(SORCIERE);
                     }
                 }else {
                     for(size_t j = 0; j<12; j++){
-                        tab_royaumes.at(i).push_back(JARDIN);
+                        tab_royaumes.at(i).push_back(SORCIERE);
                     }
                 }
             }else{
-            */
                 for(size_t j = 0; j<10; j++){
                     tab_royaumes.at(i).push_back(Partie::p_cartes_utilisees.at(i));
                 }
-            //}
+            }
+
         }
 
-     }
+            std::cout<< "tab_royaumes.at(0).at(0) : " << tab_royaumes.at(0).at(0) << std::endl;
+             std::cout<< "tab_royaumes.at(0).at(3) : " << tab_royaumes.at(0).at(3) << std::endl;
+             std::cout<< "tab_royaumes.at(2).at(0) : " << tab_royaumes.at(2).at(0) << std::endl;
+             std::cout<< "tab_royaumes.at(9).at(0) : " << tab_royaumes.at(9).at(0) << std::endl;
+             std::cout<< "tab_royaumes.at(9).at(9) : " << tab_royaumes.at(9).at(9) << std::endl;
+
+    }
 
 
         

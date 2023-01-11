@@ -17,7 +17,7 @@ class Partie{
     std::vector<Joueur*> p_joueurs;
     
     public:
-    static std::vector<const Carte*> p_cartes_utilisees;
+    static std::vector<const Royaume*> p_cartes_utilisees;
     static Partie* p_partieStatic; //Partie qui est en cours
     Partie(std::string s);
     ~Partie();
@@ -30,7 +30,7 @@ class Partie{
     Joueur* getPremierJoueur();
     void lancerPartie();
     bool finPartie();
-    void choixCarteAleatoirePourAchat(std::vector<const Carte*> cartesPartie);
+    void choixCarteAleatoirePourAchat(std::vector<const Royaume*> cartesPartie);
 };
 
 #endif

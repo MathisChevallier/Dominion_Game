@@ -15,6 +15,7 @@ class Carte{
     virtual ~Carte();
     std::string getNom() const;
     std::string getCouleurCarte() const;
+    //virtual std::string getDescriptionEffet();
     int getCout() const;
     void mettreDefausse();
     void mettreRebus();
