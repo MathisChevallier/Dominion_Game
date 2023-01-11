@@ -56,9 +56,12 @@ void creerCarte(){
 */
 
 int main(){
+
     Dominion* d = new Dominion();
-    d->choixFonctionnalites();
-    /*Partie* p1 = new Partie("hello1");
+    d->choixFonctionnalites();   
+
+    /*
+    Partie* p1 = new Partie("hello1");
     static Partie* d_partieStatic = p1;
     std::cout << d_partieStatic->getNomPartie();
     p1->creerJoueurHumain(1);
@@ -133,7 +136,8 @@ int main(){
     std::cout << VILLAGE->getDescriptionEffet();
     std::cout << ATELIER->getDescriptionEffet();
     detruireCartes();
-    delete d1;*/
+    delete d1;
+    */
 
     return 0;
 }

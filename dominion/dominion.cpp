@@ -57,7 +57,9 @@ void Dominion::creerNouvellePartie(){// Créer nom partie puis demander combien 
     }
 
     //Bon nombre Carte Victoire et Tresor
-    //p->creerCarteTresorVictoirePartie(int i);
+        //p->creerCarteTresorVictoirePartie(int i);
+        //appeler le bon constructeur de achat
+
     for(int i=1;i<=nombreJoueur;i++){
         p->creerJoueurHumain(i);
     } 
@@ -69,7 +71,28 @@ void Dominion::creerNouvellePartie(){// Créer nom partie puis demander combien 
         (this)->creerIAPartieMulti(p, nombreJoueur);
     }
 
-    //quelles extensions ?
+    //creation du jeu de base
+    std::vector<const Carte*> cartesPartie = {};
+    cartesPartie.push_back(ATELIER);
+    cartesPartie.push_back(BUCHERON);
+    cartesPartie.push_back(CAVE);
+    cartesPartie.push_back(CHAPELLE);
+    cartesPartie.push_back(FORGERON);
+    cartesPartie.push_back(MARCHE);
+    cartesPartie.push_back(MINE);
+    cartesPartie.push_back(RENOVATION);
+    cartesPartie.push_back(SORCIERE);
+    cartesPartie.push_back(VILLAGE);
+
+        //ajoute les cartes utilisees par extensions dans cartesPartie
+        //quelles extensions ?
+
+    //Crée un objet rd de type std::random_device qui génère des nombres aléatoires de haute qualité
+    std::random_device rd;
+    //crée un générateur de nombres aléatoires de type std::mt19937 initialisé avec une graine générée par rd
+    std::mt19937 g(rd());
+    //shuffle permet de mélanger un vecteur à partir de son itérateur de début et de fin et d'un générateur de nombre aléatoire
+    std::shuffle(cartesPartie.begin(), cartesPartie.end(), g);
 
     std::cout << std::endl <<  "Choix des 10 cartes Royaume qui seront en jeu : " << std::endl;
     std::cout << "  1 - Choisir manuellement"     << std::endl;
@@ -86,13 +109,17 @@ void Dominion::creerNouvellePartie(){// Créer nom partie puis demander combien 
         std::cin >> choixCarte; 
     }
 
+    Achat* a = new Achat();
+    a->afficherLigneAchat();
+    a->completerLigneAchatGauche(nombreJoueur);
     if(choixCarte == 1){
-        //(this)->choixManuelCarte(p);
+        //(this)->choixManuelCarte(cartesPartie);
     }
     else{
-        //p->choixCarteAleatoirePourAchat();
+        p->choixCarteAleatoirePourAchat(cartesPartie);
         listeCarte();
     }
+    a->completerLigneAchatCentreAuto(nombreJoueur);
 
     std::cout << "Partie " << d_partieStatic->getNomPartie() << " a bien été créé." << std::endl << std::endl;   
 
@@ -143,8 +170,6 @@ void Dominion::creerIAPartieMulti(Partie* p, int i){
     }
     else{}
 }
-
-
 
 void Dominion::reprendrePartieEnCours(){
     if(d_parties.size() == 0){

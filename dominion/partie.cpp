@@ -1,5 +1,7 @@
 #include "partie.hpp"
 
+std::vector<const Carte*> Partie::p_cartes_utilisees = {};
+
 Partie* Partie::p_partieStatic = new Partie("");
 
 Partie::Partie(std::string s):p_nomPartie(s),p_rebut(new Rebut()),p_joueurs({}){
@@ -7,7 +9,7 @@ Partie::Partie(std::string s):p_nomPartie(s),p_rebut(new Rebut()),p_joueurs({}){
 }
 
 Partie::~Partie(){
-    //delete p_achat;
+    delete p_achat;
     delete p_rebut;
 }
 
@@ -18,7 +20,11 @@ std::string Partie::getNomPartie() const{
 std::vector<Joueur*> Partie::getJoueurPartie() const{
     return p_joueurs;
 }
-
+/*
+std::vector<const Carte*> Partie::getCartesUtilisees(){
+    return p_cartes_utilisees;
+}
+*/
 
 void Partie::creerJoueurHumain(int i){
     std::string nom;
@@ -70,6 +76,14 @@ void Partie::lancerPartie(){
 bool Partie::finPartie(){
     //Regarder si pile Province vide ou si 3 piles vides
     return false;
+}
+
+void Partie::choixCarteAleatoirePourAchat(std::vector<const Carte*> cartesPartie){
+    //le tableau en argument est deja melange
+    for(size_t i = 0; i<10; i++){
+        p_cartes_utilisees.push_back(cartesPartie.at(i));
+    }
+    std::cout << "YOOO\n";
 }
 
 
