@@ -47,13 +47,35 @@ std::vector<const Carte*>& Achat::getVictoires_malediction(){return victoires_ma
 
 void Achat::afficherLigneAchat(){
     std::cout<<"Voici la ligne d'achat : \n";
-    std::cout<< "   " << OR <<"       -> Cartes restantes: " <<tresors_or.size()        <<" | Cout: " << OR->getCout()      <<" | Valeur: " << OR->getValeur() << std::endl;
-    std::cout<< "   " << ARGENT <<"   -> Cartes restantes: " <<tresors_argent.size()    <<" | Cout: " << ARGENT->getCout()  <<" | Valeur: " << ARGENT->getValeur() << std::endl;
-    std::cout<< "   " << CUIVRE <<"   -> Cartes restantes: " <<tresors_cuivre.size()    <<" | Cout: " << CUIVRE->getCout()  <<" | Valeur: " << CUIVRE->getValeur() << std::endl;
-    std::cout<< "   " << PROVINCE <<" -> Cartes restantes: " <<victoires_province.size()<<"  | Cout: " << PROVINCE->getCout()<<" | Points: " << PROVINCE->getPoints()<< std::endl;
-    std::cout<< "   " << DUCHE <<"    -> Cartes restantes: " <<victoires_duche.size()   <<"  | Cout: " << DUCHE->getCout()   <<" | Points: " << DUCHE->getPoints()   << std::endl;
-    std::cout<< "   " << DOMAINE <<"  -> Cartes restantes: " <<victoires_domaine.size() <<"  | Cout: " << DOMAINE->getCout() <<" | Points: " << DOMAINE->getPoints() << std::endl;
-    std::cout<< "   " << MALEDICTION <<"    -> Cartes restantes: " <<victoires_malediction.size()<<" | Cout: " <<MALEDICTION->getCout()<<" | Points: " <<MALEDICTION->getPoints()<< std::endl;
+
+    std::cout<< "   " << OR <<"       -> Cartes restantes: ";
+    if(tresors_or.size()>0) {std::cout<<tresors_or.size();} else {std::cout<<"Vide";}
+    std::cout<<" | Cout: " << OR->getCout()      <<" | Valeur: " << OR->getValeur() << std::endl;
+
+    std::cout<< "   " << ARGENT <<"   -> Cartes restantes: ";
+    if(tresors_argent.size()>0) {std::cout<<tresors_argent.size();} else {std::cout<<"Vide";}
+    std::cout<<" | Cout: " << ARGENT->getCout()  <<" | Valeur: " << ARGENT->getValeur() << std::endl;
+
+    std::cout<< "   " << CUIVRE <<"   -> Cartes restantes: ";
+    if(tresors_cuivre.size()>0) {std::cout<<tresors_cuivre.size();} else {std::cout<<"Vide";}
+    std::cout<<" | Cout: " << CUIVRE->getCout()  <<" | Valeur: " << CUIVRE->getValeur() << std::endl;
+
+    std::cout<< "   " << PROVINCE <<" -> Cartes restantes: ";
+    if(victoires_province.size()>0) {std::cout<<victoires_province.size();} else {std::cout<<"Vide";}
+    std::cout<<"  | Cout: " << PROVINCE->getCout()<<" | Points: " << PROVINCE->getPoints()<< std::endl;
+
+    std::cout<< "   " << DUCHE <<"    -> Cartes restantes: ";
+    if(victoires_duche.size()>0) {std::cout<<victoires_duche.size();} else {std::cout<<"Vide";}
+    std::cout<<"  | Cout: " << DUCHE->getCout()   <<" | Points: " << DUCHE->getPoints()   << std::endl;
+    
+    std::cout<< "   " << DOMAINE <<"  -> Cartes restantes: ";
+    if(victoires_domaine.size()>0) {std::cout<<victoires_domaine.size();} else {std::cout<<"Vide";}
+    std::cout<<"  | Cout: " << DOMAINE->getCout() <<" | Points: " << DOMAINE->getPoints() << std::endl;
+
+    std::cout<< "   " << MALEDICTION <<"    -> Cartes restantes: ";
+    if(victoires_malediction.size()>0) {std::cout<<victoires_malediction.size();} else {std::cout<<"Vide";}
+    std::cout<<" | Cout: " <<MALEDICTION->getCout()<<" | Points: " <<MALEDICTION->getPoints()<< std::endl;
+
     size_t affichage=14;
     for (size_t i = 0; i<tab_royaumes.size(); i++){
         if(tab_royaumes.at(i).size()>0){
@@ -94,17 +116,21 @@ void Achat::completerLigneAchatGauche(int nombreJoueur){
 
 void Achat::completerLigneAchatCentreAuto(int nombreJoueur){
     for(size_t i = 0; i<10; i++){
+        //Jardin !!!
         if(Partie::p_cartes_utilisees.at(i)->getNom() == "Jardins"){
             if(nombreJoueur==2){
                 for(size_t j = 0; j<8; j++){
                     tab_royaumes.at(i).push_back(JARDINS);
                 }
-            }else{
-                for(size_t j = 0; j<10; j++){
-                    tab_royaumes.at(i).push_back(Partie::p_cartes_utilisees.at(i));
+            }else {
+                for(size_t j = 0; j<12; j++){
+                    tab_royaumes.at(i).push_back(JARDINS);
                 }
             }
-
+        }else{
+            for(size_t j = 0; j<10; j++){
+                tab_royaumes.at(i).push_back(Partie::p_cartes_utilisees.at(i));
+            }
         }
     }
 }
@@ -131,17 +157,17 @@ std::map<int, const Carte*> Achat::afficherLigneAchatPhaseAchat(int nbTresors){
         numCarte++;
     }
     if(nbTresors >= 5){
-        std::cout << "   " << numCarte << " - " << DUCHE <<"      -> Cartes restantes: " <<victoires_duche.size()<<"       | Cout: " << DUCHE->getCout()<<" | Points: " << DUCHE->getPoints()<< std::endl;
+        std::cout << "   " << numCarte << " - " << DUCHE <<"      -> Cartes restantes: " <<victoires_duche.size()<<      " | Cout: " << DUCHE->getCout()<<" | Points: " << DUCHE->getPoints()<< std::endl;
         mapAchat.insert(std::pair<int,const Carte*>(numCarte,DUCHE));
         numCarte++;
     }
     if(nbTresors >= 6){
-        std::cout << "   " << numCarte << " - " << OR <<"         -> Cartes restantes: " <<tresors_or.size()<<"            | Cout: " << OR->getCout()<<" | Points: " << OR->getValeur()<< std::endl;
+        std::cout << "   " << numCarte << " - " << OR <<"         -> Cartes restantes: " <<tresors_or.size()<<           " | Cout: " << OR->getCout()<<" | Points: " << OR->getValeur()<< std::endl;
         mapAchat.insert(std::pair<int,const Carte*>(numCarte,OR));
         numCarte++;
     }
     if(nbTresors >= 8){
-        std::cout << "   " << numCarte << " - " << PROVINCE <<"   -> Cartes restantes: " <<victoires_province.size()<<"    | Cout: " << PROVINCE->getCout()<<" | Points: " << PROVINCE->getPoints()<< std::endl;
+        std::cout << "   " << numCarte << " - " << PROVINCE <<"   -> Cartes restantes: " <<victoires_province.size()<<   " | Cout: " << PROVINCE->getCout()<<" | Points: " << PROVINCE->getPoints()<< std::endl;
         mapAchat.insert(std::pair<int,const Carte*>(numCarte,PROVINCE));
         numCarte++;
     }
@@ -227,7 +253,7 @@ std::map<int, const Carte*> Achat::afficherLigneAchatTresor(int nbTresors){
 }
 
 
-const Carte* acheterCarteTresor(std::map<int, const Carte*> mapAchat){
+const Carte* Achat::acheterCarteTresor(std::map<int, const Carte*> mapAchat){
     std::cout << "Entrez un chiffre pour acheter le trésor associé, 0 pour passer cette phase." << std::endl;
     unsigned int achatCarte = 0;
     std::cin >> achatCarte;

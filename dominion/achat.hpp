@@ -39,6 +39,7 @@ class Achat{
     void completerLigneAchatCentreAuto(int nombreJoueur);
     std::map<int, const Carte*> afficherLigneAchatPhaseAchat(int nbTresors);
     const Carte* acheterCarte(std::map<int, const Carte*> mapAchat);
+    std::map<int, const Carte*> afficherLigneAchatTresor(int nbTresors);
     const Carte* acheterCarteTresor(std::map<int, const Carte*> mapAchat);
 };
 
