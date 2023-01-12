@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 #include "carte.hpp"
 #include "partie.hpp"
 #include "jeuBase.hpp"
@@ -24,9 +25,6 @@ class Achat{
 
     public:
     Achat();
-    //using Achat2J = Achat;
-    //using Achat3J = Achat;
-    //using Achat4J = Achat;
     ~Achat();
     std::vector<const Carte*>& getTresors_or();
     std::vector<const Carte*>& getTresors_argent();
@@ -39,11 +37,17 @@ class Achat{
     void afficherLigneAchat();
     void completerLigneAchatGauche(int nombreJoueur);
     void completerLigneAchatCentreAuto(int nombreJoueur);
+<<<<<<< Updated upstream
 
 
 
     //choix aleatoire des dix cartes
     //choix des dix cartes
+=======
+    std::map<int, const Carte*> afficherLigneAchatPhaseAchat(int nbTresors);
+    const Carte* acheterCarte(std::map<int, const Carte*> mapAchat);
+    const Carte* acheterCarteTresor(std::map<int, const Carte*> mapAchat);
+>>>>>>> Stashed changes
 };
 
 #endif
