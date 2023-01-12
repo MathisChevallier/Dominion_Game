@@ -156,12 +156,6 @@ void Joueur::phaseAchat(){
             j_main->ajouterTresorTour(t1->getValeur());
         }
     }
-<<<<<<< Updated upstream
-    std::cout << "Vous avez \033[33m" << j_main->getTresorTour() << " trésors\033[0m disponibles pour cet phase d'achat." << std::endl;
-    j_main->getMain().push_back(MILICE);
-    j_main->getMain().push_back(DOUVES);
-    j_main->getMain().push_back(VILLAGE);
-=======
     std::cout << "Vous avez \033[33m" << j_main->getTresorTour() << " trésors\033[0m disponibles pour cette phase d'achat.";
     j_main->getMain().push_back(Partie::p_partieStatic->getAchat()->acheterCarte(Partie::p_partieStatic->getAchat()->afficherLigneAchatPhaseAchat(j_main->getTresorTour())));
 
@@ -176,7 +170,6 @@ void Joueur::phaseAchat(){
 
     //j_main->getMain().push_back(MILICE);
 
->>>>>>> Stashed changes
     //while(j_main->getAchat() != 0){}
 }
 

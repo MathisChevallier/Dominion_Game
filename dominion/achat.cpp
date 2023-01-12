@@ -26,34 +26,6 @@ Achat::Achat():tresors_or({}),tresors_argent({}),tresors_cuivre({}),victoires_pr
     }
    }
 
-<<<<<<< Updated upstream
-   Achat::~Achat(){}
-
-    std::vector<const Carte*>& Achat::getTresors_or()           {return tresors_or;}
-    std::vector<const Carte*>& Achat::getTresors_argent()       {return tresors_argent;}
-    std::vector<const Carte*>& Achat::getTtresors_cuivre()      {return tresors_cuivre;}
-    std::vector<const Carte*>& Achat::getVictoires_province()   {return victoires_province;}
-    std::vector<const Carte*>& Achat::getVictoires_duche()      {return victoires_duche;}
-    std::vector<const Carte*>& Achat::getVictoires_domaine()    {return victoires_domaine;}
-    std::vector<const Carte*>& Achat::getVictoires_malediction(){return victoires_malediction;}
-
-    void Achat::afficherLigneAchat(){
-        std::cout<<"Voici la ligne d'achat : \n";
-        std::cout<< OR <<"       -> Cartes restantes: " <<tresors_or.size()<<" | Cout: " <<OR->getCout()<< "\n";
-        std::cout<< ARGENT <<"   -> Cartes restantes: " <<tresors_argent.size()<<" | Cout: " <<ARGENT->getCout()<< "\n";
-        std::cout<< CUIVRE <<"   -> Cartes restantes: " <<tresors_cuivre.size()<<" | Cout: " <<CUIVRE->getCout()<< "\n";
-        std::cout<< PROVINCE <<" -> Cartes restantes: " <<victoires_province.size()<<" | Points: " <<PROVINCE->getPoints()<< "\n";
-        std::cout<< DUCHE <<"    -> Cartes restantes: " <<victoires_duche.size()<<" | Points: " <<DUCHE->getPoints()<< "\n";
-        std::cout<< DOMAINE <<"  -> Cartes restantes: " <<victoires_domaine.size()<<" | Points: " <<DOMAINE->getPoints()<< "\n";
-        std::cout<< MALEDICTION <<" -> Cartes restantes: " <<victoires_malediction.size()<<" | Points: " <<MALEDICTION->getPoints()<< "\n";
-     
-        for (size_t i = 0; i<tab_royaumes.size(); i++){
-            if(tab_royaumes.at(i).size()>0){
-                std::cout<< tab_royaumes.at(i).at(0) << " -> Cartes restantes: " << tab_royaumes.at(i).size()<< " | Cout: "<<tab_royaumes.at(i).at(0)->getCout() << " | effet: "<< tab_royaumes.at(i).at(0)->getDescriptionEffet()<< std::endl;
-            }else {
-                std::cout<< "Pile vide.\n";
-            }
-=======
 Achat::~Achat(){
     tresors_or.clear();
     tresors_argent.clear();
@@ -94,22 +66,15 @@ void Achat::afficherLigneAchat(){
             std::cout << " -> Cartes restantes: " << tab_royaumes.at(i).size()<< " | Cout: "<<tab_royaumes.at(i).at(0)->getCout() << " | effet: "<< tab_royaumes.at(i).at(0)->getDescriptionEffet()<< std::endl;
         }else {
             std::cout << "   " << "Pile vide.\n";
->>>>>>> Stashed changes
         }
 
     }
-<<<<<<< Updated upstream
-
-    void Achat::completerLigneAchatGauche(int nombreJoueur){
-        //deja initialisee pour 2 joueurs
-=======
     std::cout<<"\n";
 }
 
 void Achat::completerLigneAchatGauche(int nombreJoueur){
     //deja initialisee pour 2 joueurs
     if(nombreJoueur==3 || nombreJoueur==4){
->>>>>>> Stashed changes
         if(nombreJoueur == 3){
             for (size_t i = 0; i<10; i++){
                 getVictoires_malediction().push_back(MALEDICTION);
@@ -118,28 +83,6 @@ void Achat::completerLigneAchatGauche(int nombreJoueur){
             for (size_t i = 0; i<20; i++){
                 getVictoires_malediction().push_back(MALEDICTION);
             }
-<<<<<<< Updated upstream
-            for (size_t i = 0; i<4; i++){
-                getVictoires_province().push_back(PROVINCE);
-                getVictoires_duche().push_back(DUCHE);
-                getVictoires_domaine().push_back(DOMAINE);
-            }
-        }
-    }
-
-    void Achat::completerLigneAchatCentreAuto(int nombreJoueur){
-        for(size_t i = 0; i<Partie::p_cartes_utilisees.size(); i++){
-            //Jardin !!!
-            if(Partie::p_cartes_utilisees.at(i)->getNom() == "Sorciere"){
-                if(nombreJoueur==2){
-                    for(size_t j = 0; j<8; j++){
-                        tab_royaumes.at(i).push_back(SORCIERE);
-                    }
-                }else {
-                    for(size_t j = 0; j<12; j++){
-                        tab_royaumes.at(i).push_back(SORCIERE);
-                    }
-=======
         }
         for (size_t i = 0; i<4; i++){
             getVictoires_province().push_back(PROVINCE);
@@ -155,7 +98,6 @@ void Achat::completerLigneAchatCentreAuto(int nombreJoueur){
             if(nombreJoueur==2){
                 for(size_t j = 0; j<8; j++){
                     tab_royaumes.at(i).push_back(JARDINS);
->>>>>>> Stashed changes
                 }
             }else{
                 for(size_t j = 0; j<10; j++){
@@ -172,11 +114,6 @@ void Achat::completerLigneAchatCentreAuto(int nombreJoueur){
              std::cout<< "tab_royaumes.at(9).at(9) : " << tab_royaumes.at(9).at(9) << std::endl;
 
     }
-<<<<<<< Updated upstream
-
-
-        
-=======
 }
 
 std::map<int, const Carte*> Achat::afficherLigneAchatPhaseAchat(int nbTresors){
@@ -320,4 +257,3 @@ const Carte* acheterCarteTresor(std::map<int, const Carte*> mapAchat){
 
 
 
->>>>>>> Stashed changes
