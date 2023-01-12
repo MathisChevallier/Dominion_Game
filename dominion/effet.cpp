@@ -112,7 +112,7 @@ void effetCarte(const std::string &s){
         }
     }
     else if(s == "effet Cave"){
-        std::cout << "Défaussez autant de cartes que vous voulez. \033[1m+1 Carte\033[0m par carte défaussée.";
+        std::cout << "Défaussez autant de cartes que vous voulez. \033[1m+1 Carte\033[0m par carte défaussée." << std::endl;
         int CarteAPiocher = 0;
         while(Joueur::j_joueurStatic->getMainJeu()->getMain().size() != 0){
             std::cout << "Voici les cartes de votre main : " << std::endl;
@@ -146,10 +146,14 @@ void effetCarte(const std::string &s){
         }
     }
     else if(s == "effet Chambre du Conseil"){
+        Joueur* jTour = Joueur::j_joueurStatic;
         for(Joueur* j : Partie::p_partieStatic->getJoueurPartie()){
-            if(j == Joueur::j_joueurStatic){}
+            if(j == jTour){}
             else{
+                Joueur::j_joueurStatic = j;
                 j->piocherCarte();
+                std::cout << j << "pioche une carte." << std::endl;
+                Joueur::j_joueurStatic = jTour;
             }
         }
     }
@@ -158,6 +162,7 @@ void effetCarte(const std::string &s){
             MainJeu::m_carteStatic = const_cast<Carte*>(carte);
             effetCarte("Défausser premiere Carte du deck");
         }
+        std::cout << Joueur::j_joueurStatic << "défausse son deck." << std::endl;
     }
     else if(s == "effet Chapelle"){
         Carte* carteJouee = MainJeu::m_carteStatic;
@@ -208,11 +213,11 @@ void effetCarte(const std::string &s){
                 Joueur::j_joueurStatic = j;
                 const Carte* c = Joueur::j_joueurStatic->devoilerCarte();
                 char choix;
-                std::cout << jTour << " choisit si la carte est défaussée ou replacée sur le deck (d ou r) : ";
+                std::cout << jTour << "choisit si la carte est défaussée ou replacée sur le deck (d ou r) : ";
                 std::cin >> choix;
-                while(choix == 'd' || choix == 'r'){
+                while(choix != 'd' && choix != 'r'){
                     std::cerr << "\033[1;31m" << choix << " n'est pas une réponse convenable. \033[0m" << std::endl;
-                    std::cout << jTour << " choisit si la carte est défaussée ou replacée sur le deck (d ou r) : ";
+                    std::cout << jTour << "choisit si la carte est défaussée ou replacée sur le deck (d ou r) : ";
                     std::cin >> choix;
                 }
                 if(choix == 'd'){
@@ -342,38 +347,41 @@ void effetCarte(const std::string &s){
         carteMain.clear();
     }
     else if(s == "effet Salle du Trone"){
-        std::vector<const Carte*> carteMain = {};
-        std::cout << "Voici les cartes actions de votre main : " << std::endl;
+        //std::vector<const Carte*> carteMain = {};
         std::vector <const Royaume*> carteRoyaume = {};
-        int numCarte = 1;
         for(const Carte *c : Joueur::j_joueurStatic->getMainJeu()->getListeCartesMain()){
             if (dynamic_cast<const Action*>(c) != nullptr || dynamic_cast<const ActionAttaque*>(c) != nullptr || dynamic_cast<const ActionReaction*>(c) != nullptr) {
                 const Royaume* r1 = static_cast<const Royaume*>(c);
                 carteRoyaume.push_back(r1);
-                std::cout << "  " << numCarte << " - " << r1 << std::endl;
+            }    
+        }
+        if(carteRoyaume.size() != 0){
+            std::cout << "Voici les cartes actions de votre main : " << std::endl;
+            int numCarte = 1;
+            for(const Royaume *r : carteRoyaume){
+                std::cout << "  " << numCarte << " - " << r << std::endl;
                 numCarte++;
             }
-            
-        }
-        unsigned int choixCarte;
-        std::cout << "Pour jouer une carte deux fois, tapez son numéro sinon tapez 0 : ";
-        std::cin >> choixCarte;
-        while(choixCarte > carteRoyaume.size()){
-            std::cerr << "\033[1;31m" << choixCarte << " n'est pas une réponse convenable. \033[0m" << std::endl;
+            unsigned int choixCarte;
             std::cout << "Pour jouer une carte deux fois, tapez son numéro sinon tapez 0 : ";
             std::cin >> choixCarte;
-        }
-        if(choixCarte == 0){}
-        else{
-            MainJeu::m_carteStatic = const_cast<Royaume*> (carteRoyaume[choixCarte-1]);
-            for(int i=0;i<2;i++){
-                std::cout << Joueur::j_joueurStatic << "joue ";
-                carteRoyaume[choixCarte-1]->jouerCarte();
+            while(choixCarte > carteRoyaume.size()){
+                std::cerr << "\033[1;31m" << choixCarte << " n'est pas une réponse convenable. \033[0m" << std::endl;
+                std::cout << "Pour jouer une carte deux fois, tapez son numéro sinon tapez 0 : ";
+                std::cin >> choixCarte;
             }
-            Joueur::j_joueurStatic->ajouterACartesJouees(carteRoyaume[choixCarte-1]);
+            if(choixCarte == 0){}
+            else{
+                MainJeu::m_carteStatic = const_cast<Royaume*> (carteRoyaume[choixCarte-1]);
+                Joueur::j_joueurStatic->ajouterACartesJouees(carteRoyaume[choixCarte-1]);
+                for(int i=0;i<2;i++){
+                    std::cout << Joueur::j_joueurStatic << "joue ";
+                    carteRoyaume[choixCarte-1]->jouerCarte();
+                }
+            }
         }
         carteRoyaume.clear();
-        std::cout << Joueur::j_joueurStatic->getMainJeu();
+        std::cout << std::endl;
     }
     else if(s == "effet Sorciere"){
         Joueur* jTour = Joueur::j_joueurStatic;
@@ -382,7 +390,9 @@ void effetCarte(const std::string &s){
             if(reaction == false){
                 Joueur::j_joueurStatic = j;
                 Joueur::j_joueurStatic->getDefausse()->ajouterCarteDefausse(MALEDICTION);
+                std::cout << Joueur::j_joueurStatic << "reçoit une " << MALEDICTION << "." << std::endl;
                 Joueur::j_joueurStatic = jTour;
+
             }
         }
         //Enlever de la liste achat
@@ -398,7 +408,7 @@ void effetCarte(const std::string &s){
                 for(int i=0;i<2;i++){
                     const Carte* c = Joueur::j_joueurStatic->devoilerCarte();
                     if(dynamic_cast<const Tresor*>(c) == nullptr){
-                        Joueur::j_joueurStatic->defausserCarteDeLaMain(c);
+                        Joueur::j_joueurStatic->getDefausse()->ajouterCarteDefausse(c);
                     }
                     else{
                         carteTresorVoleesJoueur.push_back(c);
@@ -410,16 +420,63 @@ void effetCarte(const std::string &s){
                 }
                 else{
                     //joueur jTour choisit parmi les deux
+                    std::cout << "Voici les cartes Trésors dévoilées : " << std::endl;
+                    int numCarte = 1;
+                    for(const Carte *r : carteTresorVoleesJoueur){
+                        std::cout << "  " << numCarte << " - " << r << std::endl;
+                        numCarte++;
+                    }
+                    unsigned int choixCarte;
+                    std::cout << "Ecarter la carte Trésor de votre choix, tapez son numéro : ";
+                    std::cin >> choixCarte;
+                    while(choixCarte > carteTresorVoleesJoueur.size()  && choixCarte < 1){
+                        std::cerr << "\033[1;31m" << choixCarte << " n'est pas une réponse convenable. \033[0m" << std::endl;
+                        std::cout << "Ecarter la carte Trésor de votre choix, tapez son numéro : ";
+                        std::cin >> choixCarte;
+                    }
+                    carteTresorVolees.push_back(carteTresorVoleesJoueur[choixCarte - 1]);
+                    if(choixCarte == 1){
+                        Joueur::j_joueurStatic->getDefausse()->ajouterCarteDefausse(carteTresorVoleesJoueur[1]);
+                    }
+                    else{
+                        Joueur::j_joueurStatic->getDefausse()->ajouterCarteDefausse(carteTresorVoleesJoueur[0]);
+                    }
                 }
                 carteTresorVoleesJoueur.clear();
+                Joueur::j_joueurStatic->getDefausse()->afficher();
                 Joueur::j_joueurStatic = jTour;
             }
+            std::cout << std::endl;
         }
-        
-            //Demander quelleS carteS il garde et la/les mettre dans la défausse et détruire du vecteur
+        while(carteTresorVolees.size() != 0){
+            std::cout << "Parmi ces cartes Trésors écartées, vous pouvez recevoir celles de votre choix : " << std::endl;
+            int numCarte = 1;
+            for(const Carte *r : carteTresorVolees){
+                std::cout << "  " << numCarte << " - " << r << std::endl;
+                numCarte++;
+            }
+            unsigned int choix;
+            std::cout << "Choisissez la carte Trésor de votre choix, tapez son numéro sinon tapez 0 : ";
+            std::cin >> choix;
+            while(choix > carteTresorVolees.size()){
+                std::cerr << "\033[1;31m" << choix << " n'est pas une réponse convenable. \033[0m" << std::endl;
+            std::cout << "Choisissez la carte Trésor de votre choix, tapez son numéro sinon tapez 0 : ";
+                std::cin >> choix;
+            }
+            if(choix == 0){
+                break;
+            }
+            else{
+                Joueur::j_joueurStatic->getDefausse()->ajouterCarteDefausse(carteTresorVolees[choix - 1]);
+                carteTresorVolees.erase(carteTresorVolees.begin() + choix - 1);
+            }
+        }
+        //Demander quelles cartes il garde et la/les mettre dans la défausse et détruire du vecteur
         for(const Carte* c : carteTresorVolees){
             Partie::p_partieStatic->ajouterCarteRebutDeLaPartie(c);
         }
+        std::cout << Partie::p_partieStatic->getRebut()->getCarteRebut().size();
+        Joueur::j_joueurStatic->getDefausse()->afficher();
         carteTresorVolees.clear();
     }
     //Exception pas d'effet meme si normalement ca n'arrive pas car c'est nous qui créons les effets pour chaque carte

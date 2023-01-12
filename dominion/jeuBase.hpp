@@ -28,5 +28,7 @@ extern void detruireCartes();
 //Affichage liste des cartes du jeu de base
 extern void listeCarte();
 
+extern std::vector<const Royaume*> setCarte1();
+
 
 #endif

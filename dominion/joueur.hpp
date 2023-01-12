@@ -7,6 +7,9 @@
 #include "deck.hpp"
 #include "mainJeu.hpp"
 #include "defausse.hpp"
+#include "partie.hpp"
+
+class Partie;
 
 class Joueur{
     const std::string j_nom;
@@ -19,6 +22,7 @@ class Joueur{
     static Joueur* j_joueurStatic; //Joueur qui est en train de jouer
     Joueur(const std::string &s, const std::string &c);
     ~Joueur();
+    static void nettoyer();
     Deck* getDeck();
     MainJeu* getMainJeu();
     Defausse* getDefausse();

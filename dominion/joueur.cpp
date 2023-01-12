@@ -1,9 +1,8 @@
 #include "joueur.hpp"
 
-Joueur* Joueur::j_joueurStatic = new Joueur("","");
+Joueur* Joueur::j_joueurStatic = nullptr;
 
 Joueur::Joueur(const std::string &s, const std::string &c):j_nom(s),j_couleur("\033[0;3" + c + "m"), j_pointsVictoire(0), j_deck(new Deck()), j_main(new MainJeu()), j_defausse(new Defausse()){
-    std::cout << "Joueur " << j_couleur << s << "\033[0m a été créé." << std::endl;
     j_joueurStatic = this;
 }
     
@@ -11,6 +10,10 @@ Joueur::~Joueur(){
     delete j_deck;
     delete j_main;
     delete j_defausse;
+}
+
+void Joueur::nettoyer() {
+    j_joueurStatic = nullptr;
 }
 
 Deck* Joueur::getDeck(){
@@ -55,7 +58,7 @@ const Carte* Joueur::devoilerCarte(){
     }
     else{
         const Carte* c = j_deck->piocherPremiereCarte();
-        std::cout << Joueur::j_joueurStatic << "dévoile la carte." << c << "." << std::endl;
+        std::cout << Joueur::j_joueurStatic << "dévoile la carte " << c << "." << std::endl;
         return c;
     }
 }
@@ -171,12 +174,14 @@ void Joueur::phaseAction(){
             carteRoyaume[choixCarte-1]->jouerCarte();
         }
         carteRoyaume.clear();
+        std::cout << std::endl;
         std::cout << (this)->getMainJeu();
     }
 }
 
 void Joueur::phaseAchat(){
     std::cout << "\033[4mDébut phase Achat :\033[0m" << std::endl;
+    Partie::p_partieStatic->getAchat()->afficherLigneAchat();
     for(const Carte* c : j_main->getListeCartesMain()){
         if (dynamic_cast<const Tresor*>(c) != nullptr) {
             // "tresor" est maintenant un pointeur de type "Tresor*" constant
@@ -185,16 +190,13 @@ void Joueur::phaseAchat(){
         }
     }
     std::cout << "Vous avez \033[33m" << j_main->getTresorTour() << " trésors\033[0m disponibles pour cet phase d'achat." << std::endl;
-    j_main->getMain().push_back(BUREAUCRATE);
-    j_main->getMain().push_back(BUREAUCRATE);
-    j_main->getMain().push_back(VILLAGE);
-    j_main->getMain().push_back(VILLAGE);
-    j_main->getMain().push_back(DOUVES);
-    j_main->getMain().push_back(DOUVES);
-    j_main->getMain().push_back(DUCHE);
-    j_main->getMain().push_back(PROVINCE);
-    j_main->getMain().push_back(JARDINS);
-
+    Partie::p_partieStatic->getAchat()->afficherLigneAchatPhaseAchat(j_main->getTresorTour());
+    //j_main->getMain().push_back(VILLAGE);
+    //j_main->getMain().push_back(FORGERON);
+    //j_main->getMain().push_back(MARCHE);
+    j_main->getMain().push_back(VOLEUR);
+    j_main->getMain().push_back(VOLEUR);
+    j_main->getMain().push_back(VOLEUR);
 
 
 
@@ -248,10 +250,10 @@ int Joueur::compterPointsVictoire() const{
     std::cout << (this) << "a " << nbPointsVictoire << " points." << std::endl;
     std::cout << "Détails :" << std::endl;
     for (const auto& paire : mapVictoire) {
-        std::cout << "  " << paire.first << "\033[32m : " << paire.first->getPoints()*paire.second << " point(s) (x" << paire.second << ")\033[0m" <<std::endl;
+        std::cout << "  " << paire.first << paire.first->getCouleurCarte() << " : " << paire.first->getPoints()*paire.second << " point(s) (x" << paire.second << ")\033[0m" <<std::endl;
     }
     for (const auto& paire : mapRVictoire) {
-        std::cout << "  " << paire.first << "\033[32m : " << paire.second*paire.second << " point(s) (x" << paire.second << ")\033[0m" <<std::endl;
+        std::cout << "  " << paire.first << paire.first->getCouleurCarte() << " : " << paire.second*paire.second << " point(s) (x" << paire.second << ")\033[0m" <<std::endl;
     }
     std::cout << std::endl;
     mapVictoire.clear();
