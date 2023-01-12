@@ -1,12 +1,11 @@
 #include "achat.hpp"
 
-
 Achat::Achat():tresors_or({}),tresors_argent({}),tresors_cuivre({}),victoires_province({}),victoires_duche({}),victoires_domaine({}),victoires_malediction({}),tab_royaumes({{},{},{},{},{},{},{},{},{},{}})
 {
     //initialisation pour deux joueurs
     for (size_t i = 0; i<30; i++){
 
-        if(i<8){
+        if(i<2){
             victoires_province.push_back(PROVINCE);
             victoires_duche.push_back(DUCHE);
             victoires_domaine.push_back(DOMAINE);
@@ -116,7 +115,6 @@ void Achat::completerLigneAchatGauche(int nombreJoueur){
 
 void Achat::completerLigneAchatCentreAuto(int nombreJoueur){
     for(size_t i = 0; i<10; i++){
-        //Jardin !!!
         if(Partie::p_cartes_utilisees.at(i)->getNom() == "Jardins"){
             if(nombreJoueur==2){
                 for(size_t j = 0; j<8; j++){
@@ -139,44 +137,58 @@ std::map<int, const Carte*> Achat::afficherLigneAchatPhaseAchat(int nbTresors){
     unsigned numCarte = 1;
     std::map<int, const Carte*> mapAchat;
     if(nbTresors >= 0){
-        std::cout << "\n   " << numCarte << " - " << CUIVRE <<"     -> Cartes restantes: " <<tresors_cuivre.size() <<      " | Cout: " << CUIVRE->getCout()  <<" | Valeur: " << CUIVRE->getValeur() << std::endl;
-        mapAchat.insert(std::pair<int,const Carte*>(numCarte,CUIVRE));
-        numCarte++;
-        std::cout << "   " << numCarte << " - " << MALEDICTION <<"-> Cartes restantes: " <<victoires_malediction.size()<<" | Cout: " << MALEDICTION->getCout()<<" | Points: " << MALEDICTION->getPoints()<< std::endl;
-        mapAchat.insert(std::pair<int,const Carte*>(numCarte,MALEDICTION));
-        numCarte++;
+        if(tresors_cuivre.size()>0){
+            std::cout << "\n   " << numCarte << " - " << CUIVRE <<"     -> Cartes restantes: " <<tresors_cuivre.size() <<      " | Cout: " << CUIVRE->getCout()  <<" | Valeur: " << CUIVRE->getValeur() << std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,CUIVRE));
+            numCarte++;
+        }
+        if(victoires_malediction.size()>0){
+            std::cout << "   " << numCarte << " - " << MALEDICTION <<"-> Cartes restantes: " <<victoires_malediction.size()<<" | Cout: " << MALEDICTION->getCout()<<" | Points: " << MALEDICTION->getPoints()<< std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,MALEDICTION));
+            numCarte++;
+        }
     }
     if(nbTresors >= 2){
-        std::cout << "   " << numCarte << " - " << DOMAINE <<"    -> Cartes restantes: " <<victoires_domaine.size() <<   "  | Cout: " << DOMAINE->getCout() <<" | Points: " << DOMAINE->getPoints() << std::endl;
-        mapAchat.insert(std::pair<int,const Carte*>(numCarte,DOMAINE));
-        numCarte++;
+        if(victoires_domaine.size()>0){
+            std::cout << "   " << numCarte << " - " << DOMAINE <<"    -> Cartes restantes: " <<victoires_domaine.size() <<   "  | Cout: " << DOMAINE->getCout() <<" | Points: " << DOMAINE->getPoints() << std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,DOMAINE));
+            numCarte++;
+        }
     }
     if(nbTresors >= 3){
-        std::cout << "   " << numCarte << " - " << ARGENT <<"     -> Cartes restantes: " <<tresors_argent.size()    <<   " | Cout: " << ARGENT->getCout()  <<" | Valeur: " << ARGENT->getValeur() << std::endl;
-        mapAchat.insert(std::pair<int,const Carte*>(numCarte,ARGENT));
-        numCarte++;
+        if(tresors_argent.size()>0){
+            std::cout << "   " << numCarte << " - " << ARGENT <<"     -> Cartes restantes: " <<tresors_argent.size()    <<   " | Cout: " << ARGENT->getCout()  <<" | Valeur: " << ARGENT->getValeur() << std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,ARGENT));
+            numCarte++;
+        }
     }
     if(nbTresors >= 5){
-        std::cout << "   " << numCarte << " - " << DUCHE <<"      -> Cartes restantes: " <<victoires_duche.size()<<      " | Cout: " << DUCHE->getCout()<<" | Points: " << DUCHE->getPoints()<< std::endl;
-        mapAchat.insert(std::pair<int,const Carte*>(numCarte,DUCHE));
-        numCarte++;
+        if(victoires_duche.size()>0){
+            std::cout << "   " << numCarte << " - " << DUCHE <<"      -> Cartes restantes: " <<victoires_duche.size()<<      " | Cout: " << DUCHE->getCout()<<" | Points: " << DUCHE->getPoints()<< std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,DUCHE));
+            numCarte++;
+        }
     }
     if(nbTresors >= 6){
-        std::cout << "   " << numCarte << " - " << OR <<"         -> Cartes restantes: " <<tresors_or.size()<<           " | Cout: " << OR->getCout()<<" | Points: " << OR->getValeur()<< std::endl;
-        mapAchat.insert(std::pair<int,const Carte*>(numCarte,OR));
-        numCarte++;
+        if(tresors_or.size()>0){
+            std::cout << "   " << numCarte << " - " << OR <<"         -> Cartes restantes: " <<tresors_or.size()<<           " | Cout: " << OR->getCout()<<" | Points: " << OR->getValeur()<< std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,OR));
+            numCarte++;
+        }
     }
     if(nbTresors >= 8){
-        std::cout << "   " << numCarte << " - " << PROVINCE <<"   -> Cartes restantes: " <<victoires_province.size()<<   " | Cout: " << PROVINCE->getCout()<<" | Points: " << PROVINCE->getPoints()<< std::endl;
-        mapAchat.insert(std::pair<int,const Carte*>(numCarte,PROVINCE));
-        numCarte++;
+        if(victoires_province.size()>0){
+            std::cout << "   " << numCarte << " - " << PROVINCE <<"   -> Cartes restantes: " <<victoires_province.size()<<   " | Cout: " << PROVINCE->getCout()<<" | Points: " << PROVINCE->getPoints()<< std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,PROVINCE));
+            numCarte++;
+        }
     }
     size_t affichage2=10;
     for(size_t i=0; i<tab_royaumes.size(); i++){
         if(tab_royaumes.at(i).size()>0 && tab_royaumes.at(i).at(0)->getCout()<=nbTresors){
             std::cout << "   " << numCarte << " - " << tab_royaumes.at(i).at(0);
-            if(numCarte>=affichage2){affichage2--;}
-            if(tab_royaumes.at(i).at(0)->getNom().size() < affichage2){
+            if(numCarte==10){affichage2--;}
+            if(tab_royaumes.at(i).at(0)->getNom().size() <= affichage2){
                 for(size_t j=0; j<=affichage2-tab_royaumes.at(i).at(0)->getNom().size(); j++){
                     std::cout<<" ";
                 }
@@ -192,13 +204,12 @@ std::map<int, const Carte*> Achat::afficherLigneAchatPhaseAchat(int nbTresors){
     return mapAchat;    
 }
 
-
 const Carte* Achat::acheterCarte(std::map<int, const Carte*> mapAchat){
     std::cout << "Entrez un chiffre pour acheter la carte associée, 0 pour passer cette phase. (structure: Trésor et Victoire triées par cout croissant, puis les Royaumes)" << std::endl;
     //std::map<int, const Carte*> mapAchat = afficherLigneAchatPhaseAchat(nbTresors);
     unsigned int achatCarte = 0;
     std::cin >> achatCarte;
-    while ( achatCarte==0 || achatCarte > mapAchat.size()){
+    while ( achatCarte > mapAchat.size()){
         std::cerr << "\033[1;31mVous ne pouvez pas acheter la carte n°" << achatCarte << "\033[0m" << std::endl;
         std::cout << "Entrez un chiffre entre 1 et "<<mapAchat.size()<<" pour acheter la carte, sinon 0 pour ne rien acheter.";
         std::cin >> achatCarte;
@@ -252,7 +263,6 @@ std::map<int, const Carte*> Achat::afficherLigneAchatTresor(int nbTresors){
     return mapAchat;
 }
 
-
 const Carte* Achat::acheterCarteTresor(std::map<int, const Carte*> mapAchat){
     std::cout << "Entrez un chiffre pour acheter le trésor associé, 0 pour passer cette phase." << std::endl;
     unsigned int achatCarte = 0;
@@ -275,6 +285,3 @@ const Carte* Achat::acheterCarteTresor(std::map<int, const Carte*> mapAchat){
         return mapAchat.at(achatCarte);
     }
 }
-
-
-

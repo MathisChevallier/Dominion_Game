@@ -51,7 +51,7 @@ void Partie::creerJoueurAI(){}
 void Partie::tourComplet(){
     unsigned int nbTourDeJeu = p_numTour;
     //while(!((this)->finPartie())){
-    while(p_numTour < 10){
+    while(p_numTour < 30){
         Joueur::j_joueurStatic = p_joueurs[0];
         //faire jouer le joueur en début de p_joueur puis l'enlever et le mettre à la fin du vecteur
         if(nbTourDeJeu % p_joueurs.size() == 1){
