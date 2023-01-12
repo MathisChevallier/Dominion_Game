@@ -8,15 +8,20 @@ Création du jeu de société Dominion.
 ![Règles du jeu](Dominio_base_regles_vf.pdf)
 
 ## TO DO :
-classe Achat -> créer selon nombre de personne, créer selon aléatoire ou pas + extension
+classe Achat -> créer selon aléatoire ou pas + extension
 
-achat -> phase achat + effet avec achat
+achat -> phase achat (plusieurs achats) + effet avec achat
 
 joueur IA -> ajouter priorité aux cartes pour pouvoir les jouer et les acheter + faire tour IA
 
+## Ajouts :
+
+12/01/2013 : 
+
+classe Achat -> créer selon nombre de personne
+
 faire fonctionnalité stocker résultat partie (3-Historique parties)
 
-## Ajouts :
 
 07/01/2023 :
 
