@@ -11,6 +11,7 @@ class Rebut{
     public:
     Rebut();
     ~Rebut();
+    std::vector<const Carte*> getCarteRebut();
     void ajouterCarteRebut(const Carte* const &c);
 };
 

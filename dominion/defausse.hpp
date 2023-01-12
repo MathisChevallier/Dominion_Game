@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "carte.hpp"
+#include "jeuBase.hpp"
 
 class Defausse{
     std::vector<const Carte*> def_cartes;

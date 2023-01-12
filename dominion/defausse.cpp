@@ -2,7 +2,9 @@
 
 Defausse::Defausse():def_cartes({}){}
 
-Defausse::~Defausse(){}
+Defausse::~Defausse(){
+    def_cartes.clear();
+}
 
 std::vector<const Carte*> Defausse::getListeCartesDefausse() const{
     return def_cartes;

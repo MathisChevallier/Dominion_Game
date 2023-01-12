@@ -24,7 +24,8 @@ void Carte::mettreRebus(){
     //Enlever de main et deck (peut etre plus à mettre dans joueur)
 }
 
+
 std::ostream& operator<<(std::ostream& os, const Carte* const &c){
-    os << c->getCouleurCarte() << c->getNom() << "\033[0m "; 
+    os << c->getCouleurCarte() << c->getNom() << "\033[0m"; 
     return os;
 }

@@ -4,6 +4,7 @@
 #include "action.hpp"
 #include "actionAttaque.hpp"
 #include "actionReaction.hpp"
+#include "royaumeVictoire.hpp"
 #include "victoire.hpp"
 #include "tresor.hpp"
 
@@ -15,6 +16,8 @@ extern const ActionAttaque *BUREAUCRATE, *ESPION, *MILICE, *SORCIERE, *VOLEUR;
 
 extern const ActionReaction *DOUVES;
 
+extern const RoyaumeVictoire *JARDINS;
+
 extern const Victoire *PROVINCE, *DUCHE, *DOMAINE, *MALEDICTION; //Jardins; //Jardins action ou victoire ??
 
 extern const Tresor *CUIVRE, *ARGENT, *OR;
@@ -24,6 +27,8 @@ extern void detruireCartes();
 
 //Affichage liste des cartes du jeu de base
 extern void listeCarte();
+
+extern std::vector<const Royaume*> setCarte1();
 
 
 #endif

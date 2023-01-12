@@ -9,6 +9,6 @@
 extern void effetCarte(const std::string &s);
 
 //Fonction permettant de faire les effets Attaque des cartes
-void effetAttaque();
+bool effetAttaque(Joueur* j);
 
 #endif

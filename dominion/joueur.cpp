@@ -1,9 +1,8 @@
 #include "joueur.hpp"
 
-Joueur* Joueur::j_joueurStatic = new Joueur("","");
+Joueur* Joueur::j_joueurStatic = nullptr;
 
 Joueur::Joueur(const std::string &s, const std::string &c):j_nom(s),j_couleur("\033[0;3" + c + "m"), j_pointsVictoire(0), j_deck(new Deck()), j_main(new MainJeu()), j_defausse(new Defausse()){
-    std::cout << "Joueur " << j_couleur << s << "\033[0m a été créé." << std::endl;
     j_joueurStatic = this;
 }
     
@@ -11,6 +10,10 @@ Joueur::~Joueur(){
     delete j_deck;
     delete j_main;
     delete j_defausse;
+}
+
+void Joueur::nettoyer() {
+    j_joueurStatic = nullptr;
 }
 
 Deck* Joueur::getDeck(){
@@ -38,6 +41,27 @@ int Joueur::getPointsVictoire() const{
     return j_pointsVictoire;
 }
 
+const Carte* Joueur::devoilerCarte(){
+    if(j_deck->getNbCartes() == 0){
+        // mettre defausse dans deck et melanger
+        j_deck->setListeCartesDeck(j_defausse->getListeCartesDefausse());
+        j_defausse->setListeCartesDefausse({});
+        j_deck->melanger();
+        std::cout << (this) << "mélange son deck." << std::endl;
+        std::cout << "Le deck du " << (this) << "est composé de " << j_deck->getListeCartesDeck().size() << " cartes." << std::endl;
+    }
+    if(j_deck->getNbCartes() == 0){
+        std::cout << Joueur::j_joueurStatic << "n'a plus de carte." << std::endl;
+        //Le joueur n'a plus de carte
+        const Carte* c = j_deck->piocherPremiereCarte(); // A enlever
+        return c;
+    }
+    else{
+        const Carte* c = j_deck->piocherPremiereCarte();
+        std::cout << Joueur::j_joueurStatic << "dévoile la carte " << c << "." << std::endl;
+        return c;
+    }
+}
 
 void Joueur::piocherCarte(){
     if(j_deck->getNbCartes() == 0){
@@ -48,8 +72,14 @@ void Joueur::piocherCarte(){
         std::cout << (this) << "mélange son deck." << std::endl;
         std::cout << "Le deck du " << (this) << "est composé de " << j_deck->getListeCartesDeck().size() << " cartes." << std::endl;
     }
-    const Carte* c = j_deck->piocherPremiereCarte();
-    j_main->ajouterCarteMain(c);
+    if(j_deck->getNbCartes() == 0){
+        std::cout << Joueur::j_joueurStatic << "n'a plus de carte." << std::endl;
+        //Le joueur n'a plus de carte
+    }
+    else{
+        const Carte* c = j_deck->piocherPremiereCarte();
+        j_main->ajouterCarteMain(c);
+    }
 }
     
 void Joueur::piocherMain(){
@@ -93,7 +123,7 @@ void Joueur::ajouterCarteALaMain(const Carte* const &c){
     j_main->ajouterCarteMain(c);
 }
 
-void Joueur::ecarterCarteDeLaMain(const Carte* const &c){
+void Joueur::enleverCarteDeLaMain(const Carte* const &c){
     j_main->enleverCarteMain(c); // Ajouter dans rebut
 }
 
@@ -116,7 +146,7 @@ void Joueur::phaseAction(){
         std::vector <const Royaume*> carteRoyaume = {};
         int numCarte = 1;
         for(const Carte *c : (this)->getMainJeu()->getListeCartesMain()){
-            if (dynamic_cast<const Royaume*>(c) != nullptr) {
+            if (dynamic_cast<const Action*>(c) != nullptr || dynamic_cast<const ActionAttaque*>(c) != nullptr || dynamic_cast<const ActionReaction*>(c) != nullptr) {
                 const Royaume* r1 = static_cast<const Royaume*>(c);
                 carteRoyaume.push_back(r1);
                 std::cout << "  " << numCarte << " - " << r1 << std::endl;
@@ -133,15 +163,18 @@ void Joueur::phaseAction(){
             std::cin >> choixCarte;
         }
         if(choixCarte == 0){
+            carteRoyaume.clear();
             break;
         }
         else{
             MainJeu::m_carteStatic = const_cast<Royaume*> (carteRoyaume[choixCarte-1]);
             j_main->ajouterAction(-1);
             std::cout << (this) << "joue ";
-            carteRoyaume[choixCarte-1]->jouerCarte();
             (this)->ajouterACartesJouees(carteRoyaume[choixCarte-1]);
+            carteRoyaume[choixCarte-1]->jouerCarte();
         }
+        carteRoyaume.clear();
+        std::cout << std::endl;
         std::cout << (this)->getMainJeu();
     }
     std::cout << "\n";
@@ -149,6 +182,7 @@ void Joueur::phaseAction(){
 
 void Joueur::phaseAchat(){
     std::cout << "\033[4mDébut phase Achat :\033[0m" << std::endl;
+    Partie::p_partieStatic->getAchat()->afficherLigneAchat();
     for(const Carte* c : j_main->getListeCartesMain()){
         if (dynamic_cast<const Tresor*>(c) != nullptr) {
             // "tresor" est maintenant un pointeur de type "Tresor*" constant
@@ -181,6 +215,52 @@ void Joueur::TourDeJeu(int i){
     (this)->getDefausse()->afficher();
     (this)->piocherMain();
     std::cout << std::endl;
+}
+
+void Joueur::ajouterPointsVictoire(int i){
+    j_pointsVictoire += i;
+}
+
+
+int Joueur::compterPointsVictoire() const{
+    int nbPointsVictoire = 0;
+    std::map<const Victoire*, int> mapVictoire;
+    std::map<const RoyaumeVictoire*, int> mapRVictoire;
+    for(const Carte* c : j_deck->getListeCartesDeck()){
+        if(dynamic_cast<const Victoire*>(c) != nullptr){
+            const Victoire* v = static_cast<const Victoire*>(c);
+            nbPointsVictoire += v->getPoints();
+            if(mapVictoire.count(v) > 0){
+                mapVictoire[v] = mapVictoire[v] + 1;
+            }
+            else{
+                mapVictoire[v] = 1;
+            }
+        }
+        if(dynamic_cast<const RoyaumeVictoire*>(c) != nullptr){
+            const RoyaumeVictoire* RV = static_cast<const RoyaumeVictoire*>(c);
+            RV->jouerCarte();
+            if(mapRVictoire.count(RV) > 0){
+                mapRVictoire[RV] = mapRVictoire[RV] + 1;
+            }
+            else{
+                mapRVictoire[RV] = 1;
+            }
+        }
+    }
+    nbPointsVictoire += j_pointsVictoire;
+    std::cout << (this) << "a " << nbPointsVictoire << " points." << std::endl;
+    std::cout << "Détails :" << std::endl;
+    for (const auto& paire : mapVictoire) {
+        std::cout << "  " << paire.first << paire.first->getCouleurCarte() << " : " << paire.first->getPoints()*paire.second << " point(s) (x" << paire.second << ")\033[0m" <<std::endl;
+    }
+    for (const auto& paire : mapRVictoire) {
+        std::cout << "  " << paire.first << paire.first->getCouleurCarte() << " : " << paire.second*paire.second << " point(s) (x" << paire.second << ")\033[0m" <<std::endl;
+    }
+    std::cout << std::endl;
+    mapVictoire.clear();
+    mapRVictoire.clear();
+    return nbPointsVictoire;
 }
 
 std::ostream& operator<<(std::ostream& os, const Joueur* const &j){

@@ -5,9 +5,9 @@
 #include "carte.hpp"
 
 class Victoire : public Carte{
-    int const v_valeur;
+    int const v_points;
     public:
-    Victoire(const std::string &nom, int cout ,int valeur, const std::string &couleur = "\033[32m"); //La couleur d'une carte victoire est par défaut verte
+    Victoire(const std::string &nom, int cout, int pointsVictoire, const std::string &couleur = "\033[32m"); //La couleur d'une carte victoire est par défaut verte
     ~Victoire();
     int getPoints() const;
     void jouerCarte() const;

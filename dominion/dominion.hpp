@@ -6,16 +6,21 @@
 #include <vector>
 #include "partie.hpp"
 
+using fonctionSetCarte = std::vector<const Royaume*>;
+
 class Dominion{
-    std::vector<Partie*> d_parties;    
+    std::vector<Partie*> d_parties;  
+    std::vector<Partie*> d_historique;      
     public:
     Dominion();
     ~Dominion();
     void choixFonctionnalites();
     void creerNouvellePartie();
     void reprendrePartieEnCours();
+    void historiquePartie();
     void creerIAPartieSolo(Partie* p);
     void creerIAPartieMulti(Partie* p, int i);
+    void testFinPartie();
 };
 
 #endif

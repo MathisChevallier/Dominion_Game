@@ -43,12 +43,3 @@ class Achat{
 };
 
 #endif
-
-
-/*
-Lors de l'appel du constructeur dans partie: (ex)
- MaClasse obj1;
-  MaClasse::MonConstructeur1 obj2;  // équivalent à MaClasse obj2;
-  MaClasse obj3(10);
-  MaClasse::MonConstructeur2 obj4(10);
-*/

@@ -1,10 +1,13 @@
 #include "mainJeu.hpp"
 
-Carte* MainJeu::m_carteStatic = new Action("",0,{},"");
+Carte* MainJeu::m_carteStatic = nullptr;
 
 MainJeu::MainJeu(){}
 
-MainJeu::~MainJeu(){}
+MainJeu::~MainJeu(){
+    m_cartes.clear();
+    m_cartesJouees.clear();
+}
 
 int MainJeu::getActionsAJouer() const{
     return m_nbActionsAJouer;
@@ -84,7 +87,7 @@ void MainJeu::enleverCarteJouee(const Carte* const &c){
 
 bool MainJeu::contientCarteAction(){
     for(const Carte* c : m_cartes){
-        if (dynamic_cast<const Royaume*>(c) != nullptr) {
+        if (dynamic_cast<const Action*>(c) != nullptr || dynamic_cast<const ActionAttaque*>(c) != nullptr || dynamic_cast<const ActionReaction*>(c) != nullptr) {
             return true;
         }
     }
