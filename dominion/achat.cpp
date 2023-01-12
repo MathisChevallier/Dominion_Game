@@ -106,13 +106,6 @@ void Achat::completerLigneAchatCentreAuto(int nombreJoueur){
             }
 
         }
-
-            std::cout<< "tab_royaumes.at(0).at(0) : " << tab_royaumes.at(0).at(0) << std::endl;
-             std::cout<< "tab_royaumes.at(0).at(3) : " << tab_royaumes.at(0).at(3) << std::endl;
-             std::cout<< "tab_royaumes.at(2).at(0) : " << tab_royaumes.at(2).at(0) << std::endl;
-             std::cout<< "tab_royaumes.at(9).at(0) : " << tab_royaumes.at(9).at(0) << std::endl;
-             std::cout<< "tab_royaumes.at(9).at(9) : " << tab_royaumes.at(9).at(9) << std::endl;
-
     }
 }
 
@@ -230,6 +223,7 @@ std::map<int, const Carte*> Achat::afficherLigneAchatTresor(int nbTresors){
         mapAchat.insert(std::pair<int,const Carte*>(numCarte,OR));
         numCarte++;
     }
+    return mapAchat;
 }
 
 
@@ -252,6 +246,7 @@ const Carte* acheterCarteTresor(std::map<int, const Carte*> mapAchat){
         }else if(mapAchat.at(achatCarte)->getNom() == "Cuivre"){
             tresors_cuivre.erase(tresors_cuivre.end() - 1);
         }
+        return mapAchat.at(achatCarte);
     }
 }
 
