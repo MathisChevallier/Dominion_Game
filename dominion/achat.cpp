@@ -103,23 +103,187 @@ void Achat::completerLigneAchatCentreAuto(int nombreJoueur){
     }
 }
 
-void Achat::afficherLigneAchatPhaseAchat(int i){
-    //Ajouter reste carte tresor et victoire + carte royaume
+
+std::map<int, const Carte*> Achat::afficherLigneAchatPhaseAchat(int nbTresors){
     unsigned numCarte = 1;
-    if(i >= 0){
-        std::cout <<  "   " << numCarte << " - " << CUIVRE <<"   -> Cartes restantes: " <<tresors_cuivre.size()    <<" | Cout: " << CUIVRE->getCout()  <<" | Valeur: " << CUIVRE->getValeur() << std::endl;
+    std::map<int, const Carte*> mapAchat;
+    if(nbTresors >= 0){
+        if(tresors_cuivre.size()>0){
+            std::cout << "\n   " << numCarte << " - " << CUIVRE <<"     -> Cartes restantes: " <<tresors_cuivre.size() <<      " | Cout: " << CUIVRE->getCout()  <<" | Valeur: " << CUIVRE->getValeur() << std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,CUIVRE));
+            numCarte++;
+        }      
+    }
+    if(nbTresors >= 3){
+        if(tresors_argent.size()>0){
+            std::cout << "   " << numCarte << " - " << ARGENT <<"     -> Cartes restantes: " <<tresors_argent.size()    <<   " | Cout: " << ARGENT->getCout()  <<" | Valeur: " << ARGENT->getValeur() << std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,ARGENT));
+            numCarte++;
+        }
+    }
+    if(nbTresors >= 6){
+        if(tresors_or.size()>0){
+            std::cout << "   " << numCarte << " - " << OR <<"         -> Cartes restantes: " <<tresors_or.size()<<           " | Cout: " << OR->getCout()<<" | Points: " << OR->getValeur()<< std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,OR));
+            numCarte++;
+        }
+    }
+    if(nbTresors >= 2){
+        if(victoires_domaine.size()>0){
+            std::cout << "   " << numCarte << " - " << DOMAINE <<"    -> Cartes restantes: " <<victoires_domaine.size() <<   "  | Cout: " << DOMAINE->getCout() <<" | Points: " << DOMAINE->getPoints() << std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,DOMAINE));
+            numCarte++;
+        }
+    }
+    
+    if(nbTresors >= 5){
+        if(victoires_duche.size()>0){
+            std::cout << "   " << numCarte << " - " << DUCHE <<"      -> Cartes restantes: " <<victoires_duche.size()<<      "  | Cout: " << DUCHE->getCout()<<" | Points: " << DUCHE->getPoints()<< std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,DUCHE));
+            numCarte++;
+        }
+    }
+    
+    if(nbTresors >= 8){
+        if(victoires_province.size()>0){
+            std::cout << "   " << numCarte << " - " << PROVINCE <<"   -> Cartes restantes: " <<victoires_province.size()<<   "  | Cout: " << PROVINCE->getCout()<<" | Points: " << PROVINCE->getPoints()<< std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,PROVINCE));
+            numCarte++;
+        }
+    }
+    if(nbTresors >= 0){
+        if(victoires_malediction.size()>0){
+            std::cout << "   " << numCarte << " - " << MALEDICTION <<"-> Cartes restantes: " <<victoires_malediction.size()<<" | Cout: " << MALEDICTION->getCout()<<" | Points: " << MALEDICTION->getPoints()<< std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,MALEDICTION));
+            numCarte++;
+        }
+    }
+    size_t affichage2=10;
+    for(size_t i=0; i<tab_royaumes.size(); i++){
+        if(tab_royaumes.at(i).size()>0 && tab_royaumes.at(i).at(0)->getCout()<=nbTresors){
+            std::cout << "   " << numCarte << " - " << tab_royaumes.at(i).at(0);
+            if(numCarte==10){affichage2--;}
+            if(tab_royaumes.at(i).at(0)->getNom().size() <= affichage2){
+                for(size_t j=0; j<=affichage2-tab_royaumes.at(i).at(0)->getNom().size(); j++){
+                    std::cout<<" ";
+                }
+            }
+            std::cout << "-> Cartes restantes: " << tab_royaumes.at(i).size();
+            if(tab_royaumes.at(i).size() < 10) {std::cout<<" ";}
+            std::cout <<" | Cout: " << tab_royaumes.at(i).at(0)->getCout() << std::endl;
+            mapAchat.insert(std::pair<int,const Carte*>(numCarte,tab_royaumes.at(i).at(0)));
+            numCarte++;
+        }
+    }
+    std::cout<<"\n";
+    return mapAchat;    
+}
+
+const Carte* Achat::acheterCarte(int nbTresors){
+    std::map<int, const Carte*> mapAchat = afficherLigneAchatPhaseAchat(nbTresors);
+    std::cout << "Entrez un chiffre pour acheter la carte associée, 0 pour passer cette phase. (structure: Trésor et Victoire triées par cout croissant, puis les Royaumes)" << std::endl;
+    //std::map<int, const Carte*> mapAchat = afficherLigneAchatPhaseAchat(nbTresors);
+    unsigned int achatCarte = 0;
+    std::cin >> achatCarte;
+    while ( achatCarte > mapAchat.size()){
+        std::cerr << "\033[1;31mVous ne pouvez pas acheter la carte n°" << achatCarte << "\033[0m" << std::endl;
+        std::cout << "Entrez un chiffre entre 1 et "<<mapAchat.size()<<" pour acheter la carte, sinon 0 pour ne rien acheter.";
+        std::cin >> achatCarte;
+    }
+    if(achatCarte==0){
+        return nullptr;
+    }else {
+        if(mapAchat.at(achatCarte)->getNom() == "Or"){
+            tresors_or.erase(tresors_or.end() - 1);
+            updatePileVideGauche(tresors_or);
+        }else if(mapAchat.at(achatCarte)->getNom() == "Argent"){
+            tresors_argent.erase(tresors_argent.end() - 1);
+            updatePileVideGauche(tresors_argent);
+        }else if(mapAchat.at(achatCarte)->getNom() == "Cuivre"){
+            tresors_cuivre.erase(tresors_cuivre.end() - 1);
+            updatePileVideGauche(tresors_cuivre);
+        }else if(mapAchat.at(achatCarte)->getNom() == "Province"){
+            victoires_province.erase(victoires_province.end() - 1);
+        }else if(mapAchat.at(achatCarte)->getNom() == "Duche"){
+            victoires_duche.erase(victoires_duche.end() - 1);
+            updatePileVideGauche(victoires_duche);
+        }else if(mapAchat.at(achatCarte)->getNom() == "Domaine"){
+            victoires_domaine.erase(victoires_domaine.end() - 1);
+            updatePileVideGauche(victoires_domaine);
+        }else if(mapAchat.at(achatCarte)->getNom() == "Malédiction"){
+            victoires_malediction.erase(victoires_malediction.end() - 1);
+            updatePileVideGauche(victoires_malediction);
+        }else {
+            for(size_t i=0; i<tab_royaumes.size(); i++){
+                if(tab_royaumes.at(i).size()>0 && (tab_royaumes.at(i).at(0)->getNom() == mapAchat.at(achatCarte)->getNom())){
+                    tab_royaumes.at(i).erase(tab_royaumes.at(i).end() - 1);
+                    updatePileVideCentreAuto(tab_royaumes.at(i));
+                }
+            }
+        }
+        return mapAchat.at(achatCarte);
+    }
+}
+
+std::map<int, const Carte*> Achat::afficherLigneAchatTresor(int nbTresors){
+    unsigned numCarte = 1;
+    std::map<int, const Carte*> mapAchat;
+    if(nbTresors >= 0){
+        std::cout << "   " << numCarte << " - " << CUIVRE <<"     -> Cartes restantes: " <<tresors_cuivre.size()    <<   " | Cout: " << CUIVRE->getCout()  <<" | Valeur: " << CUIVRE->getValeur() << std::endl;
+        mapAchat.insert(std::pair<int,const Carte*>(numCarte,CUIVRE));
         numCarte++;
     }
-    if(i >= 2){
-        std::cout << "   " << numCarte << " - " << DOMAINE <<"  -> Cartes restantes: " <<victoires_domaine.size() <<" | Cout: " << DOMAINE->getCout() <<" | Points: " << DOMAINE->getPoints() << std::endl;
+    if(nbTresors >= 3){
+        std::cout << "   " << numCarte << " - " << ARGENT <<"     -> Cartes restantes: " <<tresors_argent.size()    <<   " | Cout: " << ARGENT->getCout()  <<" | Valeur: " << ARGENT->getValeur() << std::endl;
+        mapAchat.insert(std::pair<int,const Carte*>(numCarte,ARGENT));
         numCarte++;
     }
-    if(i >= 3){
-        std::cout << "   " << numCarte << " - " << ARGENT <<"   -> Cartes restantes: " <<tresors_argent.size()    <<" | Cout: " << ARGENT->getCout()  <<" | Valeur: " << ARGENT->getValeur() << std::endl;
+    if(nbTresors >= 6){
+        std::cout << "   " << numCarte << " - " << OR <<"     -> Cartes restantes: " <<tresors_or.size()    <<   " | Cout: " << OR->getCout()  <<" | Valeur: " << OR->getValeur() << std::endl;
+        mapAchat.insert(std::pair<int,const Carte*>(numCarte,OR));
         numCarte++;
     }
-    if(i >= 8){
-        std::cout << "   " << numCarte << " - " << PROVINCE <<" -> Cartes restantes: " <<victoires_province.size()<<" | Cout: " << PROVINCE->getCout()<<" | Points: " << PROVINCE->getPoints()<< std::endl;
-        numCarte++;
+    return mapAchat;
+}
+
+const Carte* Achat::acheterCarteTresor(int nbTresors){
+    std::map<int, const Carte*> mapAchat = afficherLigneAchatTresor(nbTresors);
+    std::cout << "Entrez un chiffre pour acheter le trésor associé, 0 pour passer cette phase." << std::endl;
+    unsigned int achatCarte = 0;
+    std::cin >> achatCarte;
+    while ( achatCarte==0 || achatCarte > mapAchat.size()){
+        std::cerr << "\033[1;31mVous ne pouvez pas acheter la carte n°" << achatCarte << "\033[0m" << std::endl;
+        std::cout << "Entrez un chiffre entre 1 et "<<mapAchat.size()<<" pour acheter la carte, sinon 0 pour ne rien acheter.";
+        /*std::cin.clear(); 
+        std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );*/
+        std::cin >> achatCarte;
     }
+    if(achatCarte==0){
+        return nullptr;
+    }else {
+        if(mapAchat.at(achatCarte)->getNom() == "Or"){
+            tresors_or.erase(tresors_or.end() - 1);
+        }else if(mapAchat.at(achatCarte)->getNom() == "Argent"){
+            tresors_argent.erase(tresors_argent.end() - 1);
+        }else if(mapAchat.at(achatCarte)->getNom() == "Cuivre"){
+            tresors_cuivre.erase(tresors_cuivre.end() - 1);
+        }
+        return mapAchat.at(achatCarte);
+    }
+}
+
+void Achat::updatePileVideGauche(const std::vector<const Carte*> &v){
+    if(v.size() == 0){
+        pileVide++;
+    }
+}
+
+void Achat::updatePileVideCentreAuto(const std::vector<const Royaume*> &v){
+    if(v.size() == 0){
+        pileVide++;
+    }
+}
+
+int Achat::nbPileVide() const{
+    return pileVide;
 }

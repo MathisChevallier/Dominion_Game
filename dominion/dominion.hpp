@@ -16,6 +16,8 @@ class Dominion{
     ~Dominion();
     void choixFonctionnalites();
     void creerNouvellePartie();
+    void choixManuelCarte(std::vector<const Royaume*> &v);
+    void choixSetCarte(const std::vector<const Royaume*>& v);
     void reprendrePartieEnCours();
     void historiquePartie();
     void creerIAPartieSolo(Partie* p);

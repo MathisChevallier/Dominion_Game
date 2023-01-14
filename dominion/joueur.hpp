@@ -36,6 +36,7 @@ class Joueur{
     void defausserPremiereCarteDuDeck();
     void defausserMain();
     void acheterCarte(int i);
+    void ajouterCarteTresorAMain(int i);
     void ajouterCarteALaMain(const Carte* const &c);
     void enleverCarteDeLaMain(const Carte* const &c);
     void ajouterCarteSurLeDeck(const Carte* const &c);

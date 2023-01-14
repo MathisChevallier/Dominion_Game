@@ -17,7 +17,7 @@ int MainJeu::getTresorTour() const{
     return m_nbTresorTour;
 }
 
-int MainJeu::getAchat() const{
+int MainJeu::getAchatTour() const{
     return m_nbAchats;
 }
 
@@ -29,7 +29,7 @@ std::vector<const Carte*>& MainJeu::getCartesJouees(){
     return m_cartesJouees;
 }
 
-void MainJeu::ajouterAction(int n){
+void MainJeu::ajouterActionTour(int n){
     m_nbActionsAJouer += n;
 }
     
@@ -37,15 +37,15 @@ void MainJeu::ajouterTresorTour(int n){
     m_nbTresorTour += n;
 }
     
-void MainJeu::ajouterAchat(int n){
+void MainJeu::ajouterAchatTour(int n){
     m_nbAchats += n;
 }
     
-void MainJeu::retirerAction(){
+void MainJeu::retirerActionTour(){
     m_nbActionsAJouer -= 1;
 }
 
-void MainJeu::reinitialiserCompteur(){
+void MainJeu::reinitialiserCompteurTour(){
     m_nbActionsAJouer = 1;
     m_nbTresorTour = 0;
     m_nbAchats = 1;
@@ -96,7 +96,7 @@ bool MainJeu::contientCarteAction(){
 
 
 std::ostream& operator<<(std::ostream& os, const MainJeu* const &m){
-    os << "Vous avez " << m->getActionsAJouer() << " Action(s), " << m->getAchat() << " Achat(s) et " << m->getTresorTour() << " Trésor(s).\nMain : " << std::endl;
+    os << "Vous avez " << m->getActionsAJouer() << " Action(s), " << m->getAchatTour() << " Achat(s) et " << m->getTresorTour() << " Trésor(s).\nMain : " << std::endl;
     for(const Carte* c : m->getListeCartesMain()){
         if(dynamic_cast<const Royaume*>(c) != nullptr) {
             const Royaume* r = static_cast<const Royaume*>(c);

@@ -29,6 +29,13 @@ extern void detruireCartes();
 extern void listeCarte();
 
 extern std::vector<const Royaume*> setCarte1();
+extern std::vector<const Royaume*> setPremierePartie();
+extern std::vector<const Royaume*> setRichessesTresors();
+extern std::vector<const Royaume*> setInteraction();
+extern std::vector<const Royaume*> setChangementTaille();
+extern std::vector<const Royaume*> setPlaceDuVillage();
+
+
 
 
 #endif

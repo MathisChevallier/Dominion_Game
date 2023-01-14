@@ -89,7 +89,7 @@ void Joueur::piocherMain(){
         (this)->piocherCarte();
     }
     // Réinitialiser compteur d'action, d'achat et d'or de la nouvelle main
-    j_main->reinitialiserCompteur();
+    j_main->reinitialiserCompteurTour();
 }
 
 void Joueur::defausserCarteDeLaMain(const Carte* const &c){
@@ -116,8 +116,18 @@ void Joueur::defausserMain(){
 
 void Joueur::acheterCarte(int i){
     std::cout << i;
-    //regarder p_partieStatic et donner choix au joueur de choisir
+    const Carte* c = nullptr;
+    //const Carte* c = Partie::p_partieStatic->getAchat()->faireUnAchat(i);
+    (this)->getDefausse()->ajouterCarteDefausse(c);
 }
+
+void Joueur::ajouterCarteTresorAMain(int i){
+    std::cout << i;
+    const Carte* c = nullptr;
+    //const Carte* c = Partie::p_partieStatic->getAchat()->faireUnAchatCarteTresor(i);
+    (this)->ajouterCarteALaMain(c);
+}
+
 
 void Joueur::ajouterCarteALaMain(const Carte* const &c){
     j_main->ajouterCarteMain(c);
@@ -157,8 +167,10 @@ void Joueur::phaseAction(){
         unsigned int choixCarte;
         std::cout << "Pour jouer une carte, tapez son numéro sinon tapez 0 : ";
         std::cin >> choixCarte;
-        while(choixCarte > carteRoyaume.size()){
-            std::cerr << "\033[1;31m" << choixCarte << " n'est pas une réponse convenable. \033[0m" << std::endl;
+        while(std::cin.fail() || choixCarte > carteRoyaume.size()){
+            std::cerr << "\033[1;31mCe n'est pas une réponse convenable. \033[0m" << std::endl;
+            std::cin.clear(); 
+            std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
             std::cout << "Pour jouer une carte, tapez son numéro sinon tapez 0 : ";
             std::cin >> choixCarte;
         }
@@ -168,7 +180,7 @@ void Joueur::phaseAction(){
         }
         else{
             MainJeu::m_carteStatic = const_cast<Royaume*> (carteRoyaume[choixCarte-1]);
-            j_main->ajouterAction(-1);
+            j_main->ajouterActionTour(-1);
             std::cout << (this) << "joue ";
             (this)->ajouterACartesJouees(carteRoyaume[choixCarte-1]);
             carteRoyaume[choixCarte-1]->jouerCarte();
@@ -180,7 +192,7 @@ void Joueur::phaseAction(){
 }
 
 void Joueur::phaseAchat(){
-    std::cout << "\033[4mDébut phase Achat :\033[0m" << std::endl;
+    std::cout << "\033[4mDébut phase Achat :\033[0m" << j_main->getAchatTour() <<  std::endl;
     Partie::p_partieStatic->getAchat()->afficherLigneAchat();
     for(const Carte* c : j_main->getListeCartesMain()){
         if (dynamic_cast<const Tresor*>(c) != nullptr) {
@@ -189,20 +201,22 @@ void Joueur::phaseAchat(){
             j_main->ajouterTresorTour(t1->getValeur());
         }
     }
-    std::cout << "Vous avez \033[33m" << j_main->getTresorTour() << " trésors\033[0m disponibles pour cet phase d'achat." << std::endl;
-    Partie::p_partieStatic->getAchat()->afficherLigneAchatPhaseAchat(j_main->getTresorTour());
-    //j_main->getMain().push_back(VILLAGE);
-    //j_main->getMain().push_back(FORGERON);
-    //j_main->getMain().push_back(MARCHE);
-    j_main->getMain().push_back(VOLEUR);
-    j_main->getMain().push_back(VOLEUR);
-    j_main->getMain().push_back(VOLEUR);
-
-
-
-    //j_main->getMain().push_back(MILICE);
-
-    //while(j_main->getAchat() != 0){}
+    while(j_main->getAchatTour() > 0){
+        std::cout << "Vous avez \033[33m" << j_main->getTresorTour() << " Trésor(s)\033[0m et " << j_main->getAchatTour() << " Achat(s) disponibles pour cet phase d'achat." << std::endl;
+        //const Carte* choix = Partie::p_partieStatic->getAchat()->faireUnAchat();
+        const Carte* choix = Partie::p_partieStatic->getAchat()->acheterCarte(j_main->getTresorTour());
+        if(choix == nullptr){
+            std::cout << Joueur::j_joueurStatic << "n'effectue aucun achat." << std::endl;
+            break;
+        }
+        else{
+            int coutCarteAchete = choix->getCout();
+            Joueur::j_joueurStatic->getDefausse()->ajouterCarteDefausse(choix);
+            Joueur::j_joueurStatic->getMainJeu()->ajouterTresorTour(-coutCarteAchete);
+            Joueur::j_joueurStatic->getMainJeu()->ajouterAchatTour(-1);
+            std::cout << Joueur::j_joueurStatic << "achète la carte " << choix << " pour \033[33m" << choix->getCout() << " Trésors\033[0m." << std::endl;
+        }
+    }
 }
 
 void Joueur::TourDeJeu(int i){

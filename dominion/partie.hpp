@@ -40,7 +40,10 @@ class Partie{
     void detailPartie();
     bool testFinPartie();
     void finPartie();
-    void choixCarteAleatoirePourAchat(std::vector<const Royaume*> cartesPartie);
+
+    void choixCarteAleatoirePourAchat(std::vector<const Royaume*> cartesPartie, int nbr);
 };
+
+bool triCarte(const Royaume* a, const Royaume* b);
 
 #endif

@@ -15,7 +15,7 @@ const Victoire *MALEDICTION = new Victoire("Malédiction", 0, -1, "\033[35m");
 // Creation Cartes Actions, Action-Attaque, Action-Réaction
 const Action *ATELIER          = new Action("Atelier"           , 3, {"effet Atelier"}, "Recevez une carte coûtant jusqu'à 4 Trésors.");
 const Action *AVENTURIER       = new Action("Aventurier"        , 6, {"effet Aventurier"}, "Dévoilez des cartes de votre deck jusqu'à ce que 2 cartes Trésor soient devoilées. Ajoutez ces cartes Trésor à votre main et défaussez les autres cartes dévoilées.");
-const Action *BIBLIOTHEQUE     = new Action("Bibliothèque"      , 5, {"effet Bibliotheque"}, "Piochez jusqu'à ce que vous ayez 7 cartes en main. Chaque carte Action piochée peut être mise de côté. Défaussez les cartes mises de côté lorsque vous avez terminé de piocher.");
+const Action *BIBLIOTHEQUE     = new Action("Bibliotheque"      , 5, {"effet Bibliotheque"}, "Piochez jusqu'à ce que vous ayez 7 cartes en main. Chaque carte Action piochée peut être mise de côté. Défaussez les cartes mises de côté lorsque vous avez terminé de piocher.");
 const Action *BUCHERON         = new Action("Bucheron"          , 3, {"+1 Achat", "+1 Tresor", "+1 Tresor"}, "+1 Achat ; +2 Tresors");
 const Action *CAVE             = new Action("Cave"              , 2, {"+1 Action", "effet Cave"}, "+1 Action ; Défaussez autant de cartes que vous voulez. +1 Carte par carte défaussée.");
 const Action *CHAMBREDUCONSEIL = new Action("Chambre Du Conseil", 5, {"+1 Carte", "+1 Carte", "+1 Carte", "+1 Carte", "+1 Achat", "effet Chambre du Conseil"}, "+4 Cartes ; +1 Achat ; Tous vos adversaires piochent 1 carte.");
@@ -85,5 +85,30 @@ void listeCarte(){
 }
 
 std::vector<const Royaume*> setCarte1(){
-    return {ATELIER, AVENTURIER, BIBLIOTHEQUE, BUCHERON, CAVE, CHAMBREDUCONSEIL, CHANCELIER, CHAPELLE, FESTIN, FESTIVAL, FORGERON, JARDINS, LABORATOIRE, MARCHE, MINE, PRETEURSURGAGES, RENOVATION, SALLEDUTRONE, VILLAGE, BUREAUCRATE, ESPION, MILICE, SORCIERE, VOLEUR, DOUVES};
+    return {ATELIER, AVENTURIER, BIBLIOTHEQUE, BUCHERON, BUREAUCRATE, CAVE, CHAMBREDUCONSEIL, CHANCELIER, CHAPELLE, DOUVES, ESPION, FESTIN, FESTIVAL, FORGERON, JARDINS, LABORATOIRE, MARCHE, MILICE, MINE, PRETEURSURGAGES, RENOVATION, SALLEDUTRONE, SORCIERE, VILLAGE, VOLEUR};
+}
+
+extern std::vector<const Royaume*> setPremierePartie(){
+    std::cout << "  1 - \033[1;4mLes première parties :\033[0m Atelier, Bûcheron, Cave, Douves, Forgeron, Marché, Milice, Mine, Rénovation, Village." << std::endl;
+    return {CAVE, DOUVES, ATELIER, BUCHERON, VILLAGE, FORGERON, MILICE, RENOVATION, MARCHE, MINE};
+}
+
+extern std::vector<const Royaume*> setRichessesTresors(){
+    std::cout << "  2 - \033[1;4mRichesses et trésors :\033[0m Aventurier, Bureaucrate, Chancelier, Chapelle, Festin, Laboratoire, Marché, Mine, Prêteur sur gages, Salle du Trône." << std::endl;
+    return {CHAPELLE, CHANCELIER, BUREAUCRATE, FESTIN, PRETEURSURGAGES, SALLEDUTRONE, AVENTURIER, LABORATOIRE, MARCHE, MINE};
+}
+
+extern std::vector<const Royaume*> setInteraction(){
+    std::cout << "  3 - \033[1;4mInteraction :\033[0m Bibliothèque, Bureaucrate, Chambre du Conseil, Chancelier, DOuves, Espion, Festival, Milice, Village, Voleur." << std::endl;
+    return {DOUVES, CHANCELIER, VILLAGE, BUREAUCRATE, ESPION, MILICE, VOLEUR, BIBLIOTHEQUE, CHAMBREDUCONSEIL, FESTIVAL};
+}
+
+extern std::vector<const Royaume*> setChangementTaille(){
+    std::cout << "  4 - \033[1;4mChangement de taille :\033[0m Atelier, Bûcheron, Cave, Chapelle, Festin, Jardins, Laboratoire, Sorcière, Village, Voleur." << std::endl;
+    return {CAVE, CHAPELLE, ATELIER, BUCHERON, VILLAGE, FESTIN, JARDINS, VOLEUR, LABORATOIRE, SORCIERE};
+}
+
+extern std::vector<const Royaume*> setPlaceDuVillage(){
+    std::cout << "  5 - \033[1;4mPlace du Village :\033[0m Bibliothèque, Bûcheron, Bureaucrate, Cave, Festival, Forgeron, Marché, Rénovation, Salle du Trône, Village." << std::endl;
+    return {CAVE, BUCHERON, VILLAGE, BUREAUCRATE, FORGERON, RENOVATION, SALLEDUTRONE, BIBLIOTHEQUE, FESTIVAL, MARCHE};
 }

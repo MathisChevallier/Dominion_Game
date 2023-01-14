@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 #include "carte.hpp"
 #include "partie.hpp"
 #include "jeuBase.hpp"
@@ -20,13 +21,11 @@ class Achat{
     std::vector<const Carte*> victoires_domaine;
     std::vector<const Carte*> victoires_malediction;
     std::vector< std::vector<const Royaume*> > tab_royaumes;
+    int pileVide = 0;
     
 
     public:
     Achat();
-    //using Achat2J = Achat;
-    //using Achat3J = Achat;
-    //using Achat4J = Achat;
     ~Achat();
     std::vector<const Carte*>& getTresors_or();
     std::vector<const Carte*>& getTresors_argent();
@@ -39,12 +38,14 @@ class Achat{
     void afficherLigneAchat();
     void completerLigneAchatGauche(int nombreJoueur);
     void completerLigneAchatCentreAuto(int nombreJoueur);
-    void afficherLigneAchatPhaseAchat(int i);
+    std::map<int, const Carte*> afficherLigneAchatPhaseAchat(int nbTresors);
+    const Carte* acheterCarte(int nbTresors);
+    std::map<int, const Carte*> afficherLigneAchatTresor(int nbTresors);
+    const Carte* acheterCarteTresor(int nbTresors);
+    void updatePileVideGauche(const std::vector<const Carte*> &c);
+    void updatePileVideCentreAuto(const std::vector<const Royaume*> &c);
+    int nbPileVide() const;
 
-
-
-    //choix aleatoire des dix cartes
-    //choix des dix cartes
 };
 
 #endif

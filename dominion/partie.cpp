@@ -50,8 +50,7 @@ void Partie::creerJoueurAI(){}
 
 void Partie::tourComplet(){
     unsigned int nbTourDeJeu = p_numTour;
-    //while(!((this)->finPartie())){
-    while(p_numTour < 10){
+    while(!((this)->testFinPartie())){
         Joueur::j_joueurStatic = p_joueurs[0];
         //faire jouer le joueur en début de p_joueur puis l'enlever et le mettre à la fin du vecteur
         if(nbTourDeJeu % p_joueurs.size() == 1){
@@ -71,6 +70,8 @@ void Partie::tourComplet(){
             std::cin >> suitePartie;
             while(suitePartie != 'o' && suitePartie != 'n'){
                 std::cerr << "\033[1;31m" << suitePartie << " n'est pas une réponse convenable. \033[0m" << std::endl;
+                std::cin.clear(); 
+                std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
                 std::cout << "Voulez vous continuer la partie (o ou n) : ";
                 std::cin >> suitePartie;
             }
@@ -105,6 +106,7 @@ void Partie::lancerPartie(){
     for(Joueur* j : p_joueurs){
         j->piocherMain();
     }
+
     std::cout << std::endl;
     (this)->tourComplet();
 }
@@ -121,12 +123,15 @@ void Partie::detailPartie(){
 }
 
 bool Partie::testFinPartie(){
-    //Regarder si pile Province vide ou si 3 piles vides
-    return true;
+    if(p_achat->nbPileVide() == 3 || p_achat->getVictoires_province().size() == 0){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 void Partie::finPartie(){
-    //Regarder si pile Province vide ou si 3 piles vides
     std::cout << "\033[1;4mRésultat :\033[0m " << std::endl << std::endl;
     int maxPoints = INT_MIN;
     Joueur* jPremier;
@@ -149,11 +154,22 @@ void Partie::finPartie(){
 }
 
 
-void Partie::choixCarteAleatoirePourAchat(std::vector<const Royaume*> cartesPartie){
-    //Remettre cartes utilisees à zéro si une partie a déjà été créé
-    Partie::p_cartes_utilisees = {};
+void Partie::choixCarteAleatoirePourAchat(std::vector<const Royaume*> cartesPartie, int nbr){
+    //Mélanger les cartes du vecteur
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(cartesPartie.begin(), cartesPartie.end(), g);
+
     //le tableau en argument est deja melange
-    for(size_t i = 0; i<10; i++){
+    for(int i = 0; i<nbr; i++){
         p_cartes_utilisees.push_back(cartesPartie.at(i));
     }
+    sort(p_cartes_utilisees.begin(), p_cartes_utilisees.end(), triCarte);
+}
+
+bool triCarte(const Royaume* a, const Royaume* b) {
+    if (a->getCout() == b->getCout()) {
+        return a->getNom() < b->getNom();
+    }
+    return a->getCout() < b->getCout();
 }
