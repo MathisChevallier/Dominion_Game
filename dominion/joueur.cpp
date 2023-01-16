@@ -36,7 +36,6 @@ std::string Joueur::getCouleurJoueur() const{
     return j_couleur;
 }
 
-
 int Joueur::getPointsVictoire() const{
     return j_pointsVictoire;
 }
@@ -135,76 +134,6 @@ void Joueur::ajouterCarteSurLeDeck(const Carte* const &c){
 void Joueur::ajouterACartesJouees(const Carte* const &c){
     j_main->enleverCarteMain(c);
     j_main->ajouterCarteJouee(c);
-}
-
-
-void Joueur::phaseAction(){
-    std::cout << "\033[4mDébut phase Action :\033[0m" << std::endl;
-    std::cout << (this)->getMainJeu();
-    while(j_main->contientCarteAction() && j_main->getActionsAJouer() != 0){
-        std::cout << "Voici les cartes actions de votre main : " << std::endl;
-        std::vector <const Royaume*> carteRoyaume = {};
-        int numCarte = 1;
-        for(const Carte *c : (this)->getMainJeu()->getListeCartesMain()){
-            if (dynamic_cast<const Action*>(c) != nullptr || dynamic_cast<const ActionAttaque*>(c) != nullptr || dynamic_cast<const ActionReaction*>(c) != nullptr) {
-                const Royaume* r1 = static_cast<const Royaume*>(c);
-                carteRoyaume.push_back(r1);
-                std::cout << "  " << numCarte << " - " << r1 << std::endl;
-                numCarte++;
-            }
-            
-        }
-        unsigned int choixCarte;
-        std::cout << "Pour jouer une carte, tapez son numéro sinon tapez 0 : ";
-        std::cin >> choixCarte;
-        while(choixCarte > carteRoyaume.size()){
-            std::cerr << "\033[1;31m" << choixCarte << " n'est pas une réponse convenable. \033[0m" << std::endl;
-            std::cout << "Pour jouer une carte, tapez son numéro sinon tapez 0 : ";
-            std::cin >> choixCarte;
-        }
-        if(choixCarte == 0){
-            carteRoyaume.clear();
-            break;
-        }
-        else{
-            MainJeu::m_carteStatic = const_cast<Royaume*> (carteRoyaume[choixCarte-1]);
-            j_main->ajouterAction(-1);
-            std::cout << (this) << "joue ";
-            (this)->ajouterACartesJouees(carteRoyaume[choixCarte-1]);
-            carteRoyaume[choixCarte-1]->jouerCarte();
-        }
-        carteRoyaume.clear();
-        std::cout << std::endl;
-        std::cout << (this)->getMainJeu();
-    }
-    std::cout << "\n";
-}
-
-void Joueur::phaseAchat(){
-    std::cout << "\033[4mDébut phase Achat :\033[0m" << std::endl;
-    Partie::p_partieStatic->getAchat()->afficherLigneAchat();
-    for(const Carte* c : j_main->getListeCartesMain()){
-        if (dynamic_cast<const Tresor*>(c) != nullptr) {
-            // "tresor" est maintenant un pointeur de type "Tresor*" constant
-            const Tresor* t1 = static_cast<const Tresor*>(c);
-            j_main->ajouterTresorTour(t1->getValeur());
-        }
-    }
-    std::cout << "Vous avez \033[33m" << j_main->getTresorTour() << " trésors\033[0m disponibles pour cette phase d'achat.";
-    j_main->getMain().push_back(Partie::p_partieStatic->getAchat()->acheterCarte(Partie::p_partieStatic->getAchat()->afficherLigneAchatPhaseAchat(j_main->getTresorTour())));
-
-    //j_main->getMain().push_back(VILLAGE);
-    //j_main->getMain().push_back(FORGERON);
-    //j_main->getMain().push_back(MARCHE);
-    //j_main->getMain().push_back(VOLEUR);
-    //j_main->getMain().push_back(VOLEUR);
-    //j_main->getMain().push_back(VOLEUR);
-
-
-
-    //j_main->getMain().push_back(MILICE);
-
-    //while(j_main->getAchat() != 0){}
 }
 
 void Joueur::TourDeJeu(int i){

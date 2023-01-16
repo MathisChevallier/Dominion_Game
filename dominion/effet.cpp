@@ -14,7 +14,7 @@ void effetCarte(const std::string &s){
     }
     else if(s == "+1 Achat"){
         //Recupere un achat
-        Joueur::j_joueurStatic->getMainJeu()->ajouterAchat(1);
+        Joueur::j_joueurStatic->getMainJeu()->ajouterAchatTour(1);
     }
     else if(s == "+1 Tresor"){
         //Recupere un tresor pour la phase d'achat

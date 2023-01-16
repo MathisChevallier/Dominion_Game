@@ -9,7 +9,7 @@
 class ActionReaction : public Royaume{
     std::vector<std::string> const r_effetReaction;
     public:
-    ActionReaction(const std::string &nom, int cout, const std::vector<std::string> &effet, const std::string &desc, const std::vector<std::string> &effetReaction, const std::string &couleur = "\033[34m");
+    ActionReaction(const std::string &nom, int cout, const std::vector<std::string> &effet, const std::string &desc, const std::vector<std::string> &effetReaction, int priorite, const std::string &couleur = "\033[34m");
     ~ActionReaction();
     std::vector<std::string> getEffetReaction() const;
     void jouerCarte() const;

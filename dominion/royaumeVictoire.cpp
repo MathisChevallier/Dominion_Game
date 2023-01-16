@@ -1,7 +1,7 @@
 #include "royaumeVictoire.hpp"
 
-RoyaumeVictoire::RoyaumeVictoire(const std::string &nom, int cout, const std::vector<std::string> &effet, const std::string &desc, const std::string &couleur)
-    :Royaume(nom, cout, couleur, effet, desc){}
+RoyaumeVictoire::RoyaumeVictoire(const std::string &nom, int cout, const std::vector<std::string> &effet, const std::string &desc, int priorite, const std::string &couleur)
+    :Royaume(nom, cout, priorite, couleur, effet, desc){}
 
 RoyaumeVictoire::~RoyaumeVictoire(){}
 

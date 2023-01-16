@@ -1,11 +1,13 @@
 #include "achat.hpp"
 
+std::map<int, const Carte*> Achat::mapAchat = {};
+
 Achat::Achat():tresors_or({}),tresors_argent({}),tresors_cuivre({}),victoires_province({}),victoires_duche({}),victoires_domaine({}),victoires_malediction({}),tab_royaumes({{},{},{},{},{},{},{},{},{},{}})
 {
     //initialisation pour deux joueurs
     for (size_t i = 0; i<30; i++){
 
-        if(i<2){
+        if(i<8){
             victoires_province.push_back(PROVINCE);
             victoires_duche.push_back(DUCHE);
             victoires_domaine.push_back(DOMAINE);
@@ -133,9 +135,10 @@ void Achat::completerLigneAchatCentreAuto(int nombreJoueur){
     }
 }
 
-std::map<int, const Carte*> Achat::afficherLigneAchatPhaseAchat(int nbTresors){
+void Achat::afficherLigneAchatPhaseAchat(int nbTresors){
     unsigned numCarte = 1;
-    std::map<int, const Carte*> mapAchat;
+    Achat::mapAchat = {};
+
     if(nbTresors >= 0){
         if(tresors_cuivre.size()>0){
             std::cout << "\n   " << numCarte << " - " << CUIVRE <<"     -> Cartes restantes: " <<tresors_cuivre.size() <<      " | Cout: " << CUIVRE->getCout()  <<" | Valeur: " << CUIVRE->getValeur() << std::endl;
@@ -201,19 +204,9 @@ std::map<int, const Carte*> Achat::afficherLigneAchatPhaseAchat(int nbTresors){
         }
     }
     std::cout<<"\n";
-    return mapAchat;    
 }
 
-const Carte* Achat::acheterCarte(std::map<int, const Carte*> mapAchat){
-    std::cout << "Entrez un chiffre pour acheter la carte associée, 0 pour passer cette phase. (structure: Trésor et Victoire triées par cout croissant, puis les Royaumes)" << std::endl;
-    //std::map<int, const Carte*> mapAchat = afficherLigneAchatPhaseAchat(nbTresors);
-    unsigned int achatCarte = 0;
-    std::cin >> achatCarte;
-    while ( achatCarte > mapAchat.size()){
-        std::cerr << "\033[1;31mVous ne pouvez pas acheter la carte n°" << achatCarte << "\033[0m" << std::endl;
-        std::cout << "Entrez un chiffre entre 1 et "<<mapAchat.size()<<" pour acheter la carte, sinon 0 pour ne rien acheter.";
-        std::cin >> achatCarte;
-    }
+const Carte* Achat::acheterCarte(int achatCarte){
     if(achatCarte==0){
         return nullptr;
     }else {

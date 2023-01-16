@@ -14,10 +14,11 @@ class Royaume : public Carte{
     std::vector<std::string> const r_effets;
     std::string const r_descriptionEffet;
     public:
-    Royaume(const std::string &nom, int cout, const std::string &couleur, const std::vector<std::string> &effet, const std::string &desc);
+    Royaume(const std::string &nom, int cout, int priorite, const std::string &couleur, const std::vector<std::string> &effet, const std::string &desc);
     virtual ~Royaume();
     std::string getDescriptionEffet() const;
     std::vector<std::string> getEffets() const;
+    
     virtual void jouerCarte() const = 0;
 };
 

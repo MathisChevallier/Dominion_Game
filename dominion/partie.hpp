@@ -7,10 +7,12 @@
 #include <climits>
 #include "achat.hpp"
 #include "rebut.hpp"
-#include "joueur.hpp"
+//#include "joueur.hpp"
+#include "joueurHumain.hpp"
+#include "joueurAI.hpp"
 
 class Achat;
-class Joueur;
+class JoueurHumain;
 
 class Partie{
     std::string p_nomPartie;
@@ -23,6 +25,7 @@ class Partie{
     public:
     static std::vector<const Royaume*> p_cartes_utilisees;
     static Partie* p_partieStatic; //Partie qui est en cours
+
     Partie(std::string s);
     ~Partie();
     static void nettoyer();
@@ -34,7 +37,7 @@ class Partie{
     //static std::vector<const Carte*> getCartesUtilisees();
     void ajouterCarteRebutDeLaPartie(const Carte* const &c);
     void creerJoueurHumain(int i);
-    void creerJoueurAI();
+    void creerJoueurAI(int i);
     void tourComplet();
     void lancerPartie();
     void reprendrePartie();

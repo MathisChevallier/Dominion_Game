@@ -1,7 +1,7 @@
 #include "actionReaction.hpp"
 
-ActionReaction::ActionReaction(const std::string &nom, int cout, const std::vector<std::string> &effet, const std::string &desc, const std::vector<std::string> &effetReaction, const std::string &couleur)
-    :Royaume(nom,cout,couleur,effet,desc), r_effetReaction(effetReaction){}
+ActionReaction::ActionReaction(const std::string &nom, int cout, const std::vector<std::string> &effet, const std::string &desc, const std::vector<std::string> &effetReaction, int priorite, const std::string &couleur)
+    :Royaume(nom,cout,priorite,couleur,effet,desc), r_effetReaction(effetReaction){}
 
 ActionReaction::~ActionReaction(){}
 

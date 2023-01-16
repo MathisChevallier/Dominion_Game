@@ -190,7 +190,7 @@ void Dominion::creerNouvellePartie(){// Créer nom partie puis demander combien 
 }
 
 void Dominion::creerIAPartieSolo(Partie* p){
-    int nombreAI;
+    size_t nombreAI;
     std::cout << "Avec combien d'AI voulez vous jouer (entre 1 et 3): ";
     std::cin >> nombreAI; 
     while(nombreAI < 1 || nombreAI > 3){
@@ -198,9 +198,9 @@ void Dominion::creerIAPartieSolo(Partie* p){
         std::cout << "Avec combien d'AI voulez vous jouer (entre 1 et 3) : ";
         std::cin >> nombreAI; 
     }     
-    for(int j=1;j<=nombreAI;j++){
+    for(size_t j=1;j<=nombreAI;j++){
         p->getNomPartie();
-        //p->creerJoueurBot(j);
+        p->creerJoueurAI(j);
     }
 }
 
@@ -214,7 +214,7 @@ void Dominion::creerIAPartieMulti(Partie* p, int i){
             std::cout << "Voulez vous jouer avec des IA (o ou n) : ";
             std::cin >> questionAI;
         }
-        int nombreAI;
+        size_t nombreAI;
         if(questionAI == 'n'){}
         else{
             std::cout << "Avec combien d'AI voulez vous jouer : ";
@@ -224,9 +224,9 @@ void Dominion::creerIAPartieMulti(Partie* p, int i){
                 std::cout << "Avec combien d'AI voulez vous jouer : ";
                 std::cin >> nombreAI;
             }     
-            for(int j=1;j<=nombreAI;j++){
+            for(size_t j=1;j<=nombreAI;j++){
                 p->getNomPartie();
-                //p->creerJoueurBot(j);
+                p->creerJoueurAI(j);
             }        
         }
     }

@@ -10,6 +10,16 @@ std::vector<const Carte*> Defausse::getListeCartesDefausse() const{
     return def_cartes;
 }
 
+int Defausse::getNbFoisCarteDansDefausse(const Carte* c) const{
+    unsigned int compteurC = 0;
+    for(size_t i=0; i<getListeCartesDefausse().size(); i++){
+        if(getListeCartesDefausse().at(i)->getNom() == c->getNom()){
+            compteurC++;
+        }
+    }
+    return compteurC;
+}
+    
 void Defausse::afficher(){
     for(const Carte* c : def_cartes){
         std::cout << c->getNom() << " / ";

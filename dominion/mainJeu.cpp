@@ -29,6 +29,16 @@ std::vector<const Carte*>& MainJeu::getCartesJouees(){
     return m_cartesJouees;
 }
 
+int MainJeu::getNbFoisCarteDansMain(const Carte* c) const{
+    unsigned int compteurC = 0;
+    for(size_t i=0; i<getListeCartesMain().size(); i++){
+        if(getListeCartesMain().at(i)->getNom() == c->getNom()){
+            compteurC++;
+        }
+    }
+    return compteurC;
+}
+
 void MainJeu::ajouterAction(int n){
     m_nbActionsAJouer += n;
 }
@@ -37,11 +47,11 @@ void MainJeu::ajouterTresorTour(int n){
     m_nbTresorTour += n;
 }
     
-void MainJeu::ajouterAchat(int n){
+void MainJeu::ajouterAchatTour(int n){
     m_nbAchats += n;
 }
     
-void MainJeu::retirerAction(){
+void MainJeu::retirerActionTour(){
     m_nbActionsAJouer -= 1;
 }
 

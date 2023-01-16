@@ -1,7 +1,7 @@
 #include "actionAttaque.hpp"
 
-ActionAttaque::ActionAttaque(const std::string &nom, int cout, const std::vector<std::string> &effet, const std::string &desc, const std::vector<std::string> &effetAttaque, const std::string &couleur)
-    :Royaume(nom,cout,couleur,effet,desc), r_effetAttaque(effetAttaque){}
+ActionAttaque::ActionAttaque(const std::string &nom, int cout, const std::vector<std::string> &effet, const std::string &desc, const std::vector<std::string> &effetAttaque, int priorite, const std::string &couleur)
+    :Royaume(nom,cout,priorite,couleur,effet,desc), r_effetAttaque(effetAttaque){}
 
 ActionAttaque::~ActionAttaque(){}
 

@@ -33,9 +33,18 @@ void Deck::setListeCartesDeck(const std::vector<const Carte*> &liste){
     deck_cartes = liste;
 }
 
-    
 int Deck::getNbCartes() const{
     return deck_cartes.size();
+}
+
+int Deck::getNbFoisCarteDansDeck(const Carte* c) const{
+    unsigned int compteurC = 0;
+    for(size_t i=0; i<getListeCartesDeck().size(); i++){
+        if(getListeCartesDeck().at(i)->getNom() == c->getNom()){
+            compteurC++;
+        }
+    }
+    return compteurC;
 }
 
 const Carte* Deck::getPremiereCarteSurPioche() const{

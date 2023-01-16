@@ -1,6 +1,6 @@
 #include "victoire.hpp"
 
-Victoire::Victoire(const std::string &nom, int cout, int pointsVictoire, const std::string &couleur):Carte(nom, cout, couleur), v_points(pointsVictoire){}
+Victoire::Victoire(const std::string &nom, int cout, int pointsVictoire, int priorite, const std::string &couleur):Carte(nom, cout, priorite, couleur), v_points(pointsVictoire){}
     
 Victoire::~Victoire(){}
 

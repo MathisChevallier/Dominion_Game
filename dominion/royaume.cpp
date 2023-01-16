@@ -1,7 +1,7 @@
 #include "royaume.hpp"
 
-Royaume::Royaume(const std::string &nom, int cout, const std::string &couleur, const std::vector<std::string> &effet, const std::string &desc)
-    :Carte(nom, cout, couleur), r_effets(effet), r_descriptionEffet(desc){}
+Royaume::Royaume(const std::string &nom, int cout, int priorite, const std::string &couleur, const std::vector<std::string> &effet, const std::string &desc)
+    :Carte(nom, cout, priorite, couleur), r_effets(effet), r_descriptionEffet(desc){}
 
 Royaume::~Royaume(){}
 

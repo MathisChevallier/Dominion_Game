@@ -26,10 +26,11 @@ class MainJeu{
     int getAchat() const;
     std::vector<const Carte*>& getMain();
     std::vector<const Carte*>& getCartesJouees();
+    int getNbFoisCarteDansMain(const Carte* c) const;
     void ajouterAction(int n);
     void ajouterTresorTour(int n);
-    void ajouterAchat(int n);
-    void retirerAction();
+    void ajouterAchatTour(int n);
+    void retirerActionTour();
     void reinitialiserCompteur();
     std::vector<const Carte*> getListeCartesMain() const;
     std::vector<const Carte*> getListeCartesJouees() const;

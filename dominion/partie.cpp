@@ -41,12 +41,14 @@ void Partie::creerJoueurHumain(int i){
     std::string nom;
     std::cout << "Donnez un nom au joueur numéro " << i << ": ";
     std::cin >> nom;
-    p_joueurs.push_back(new Joueur(nom, std::to_string(i)));
+    p_joueurs.push_back(new JoueurHumain(nom, std::to_string(i)));
     std::cout << p_joueurs[p_joueurs.size()-1] << "\033[0ma été créé." << std::endl;
 }
 
-void Partie::creerJoueurAI(){}
-
+void Partie::creerJoueurAI(int i){
+    p_joueurs.push_back(new JoueurAI("Bot "+std::to_string(i), std::to_string(i+p_joueurs.size())));
+    std::cout << p_joueurs[p_joueurs.size()-1] << "\033[0ma été créé." << std::endl;
+}
 
 void Partie::tourComplet(){
     unsigned int nbTourDeJeu = p_numTour;
@@ -88,7 +90,6 @@ void Partie::tourComplet(){
         (this)->finPartie();
     }
 }
-
 
 void Partie::lancerPartie(){
     for(Joueur* j : p_joueurs){

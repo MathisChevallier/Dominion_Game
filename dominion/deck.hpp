@@ -19,6 +19,7 @@ class Deck{
     void setListeCartesDeck(const std::vector<const Carte*> &liste);
     const Carte* getPremiereCarteSurPioche() const;
     int getNbCartes() const;
+    int getNbFoisCarteDansDeck(const Carte* c) const;
     const Carte* piocherPremiereCarte();
     //void enleverCarteDeck(const Carte* const &c);
     void ajouterCarteSurDeck(const Carte* const &c);

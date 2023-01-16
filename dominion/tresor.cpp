@@ -1,6 +1,6 @@
 #include "tresor.hpp"
 
-Tresor::Tresor(const std::string &nom, int cout, int valeur, const std::string &couleur):Carte(nom, cout, couleur), t_valeur(valeur){}
+Tresor::Tresor(const std::string &nom, int cout, int valeur, int priorite, const std::string &couleur):Carte(nom, cout, priorite, couleur), t_valeur(valeur){}
     
 Tresor::~Tresor(){}
 

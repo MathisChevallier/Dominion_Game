@@ -26,6 +26,9 @@ class Achat{
     public:
     Achat();
     ~Achat();
+
+    static std::map<int, const Carte*> mapAchat;
+
     std::vector<const Carte*>& getTresors_or();
     std::vector<const Carte*>& getTresors_argent();
     std::vector<const Carte*>& getTtresors_cuivre();
@@ -37,8 +40,8 @@ class Achat{
     void afficherLigneAchat();
     void completerLigneAchatGauche(int nombreJoueur);
     void completerLigneAchatCentreAuto(int nombreJoueur);
-    std::map<int, const Carte*> afficherLigneAchatPhaseAchat(int nbTresors);
-    const Carte* acheterCarte(std::map<int, const Carte*> mapAchat);
+    void afficherLigneAchatPhaseAchat(int nbTresors);
+    const Carte* acheterCarte(int i);
     std::map<int, const Carte*> afficherLigneAchatTresor(int nbTresors);
     const Carte* acheterCarteTresor(std::map<int, const Carte*> mapAchat);
 };
