@@ -11,6 +11,7 @@ class ActionReaction : public Royaume{
     public:
     ActionReaction(const std::string &nom, int cout, const std::vector<std::string> &effet, const std::string &desc, const std::vector<std::string> &effetReaction, int priorite, const std::string &couleur = "\033[34m");
     ~ActionReaction();
+    std::string getType() const override;
     std::vector<std::string> getEffetReaction() const;
     void jouerCarte() const;
 };

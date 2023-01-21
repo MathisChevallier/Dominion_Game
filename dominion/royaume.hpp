@@ -18,7 +18,7 @@ class Royaume : public Carte{
     virtual ~Royaume();
     std::string getDescriptionEffet() const;
     std::vector<std::string> getEffets() const;
-    
+    virtual std::string getType() const = 0;
     virtual void jouerCarte() const = 0;
 };
 

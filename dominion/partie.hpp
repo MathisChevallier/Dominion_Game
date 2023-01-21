@@ -7,7 +7,6 @@
 #include <climits>
 #include "achat.hpp"
 #include "rebut.hpp"
-//#include "joueur.hpp"
 #include "joueurHumain.hpp"
 #include "joueurAI.hpp"
 
@@ -29,12 +28,12 @@ class Partie{
     Partie(std::string s);
     ~Partie();
     static void nettoyer();
+    int getNumTour();
     std::string getNomPartie() const;
     bool getFinPartie() const;
     Achat* getAchat() const;
     Rebut* getRebut() const;
     std::vector<Joueur*> getJoueurPartie() const;
-    //static std::vector<const Carte*> getCartesUtilisees();
     void ajouterCarteRebutDeLaPartie(const Carte* const &c);
     void creerJoueurHumain(int i);
     void creerJoueurAI(int i);

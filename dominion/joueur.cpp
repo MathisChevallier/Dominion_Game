@@ -113,11 +113,6 @@ void Joueur::defausserMain(){
     }
 }
 
-void Joueur::acheterCarte(int i){
-    std::cout << i;
-    //regarder p_partieStatic et donner choix au joueur de choisir
-}
-
 void Joueur::ajouterCarteALaMain(const Carte* const &c){
     j_main->ajouterCarteMain(c);
 }
@@ -149,7 +144,6 @@ void Joueur::TourDeJeu(int i){
 void Joueur::ajouterPointsVictoire(int i){
     j_pointsVictoire += i;
 }
-
 
 int Joueur::compterPointsVictoire() const{
     int nbPointsVictoire = 0;

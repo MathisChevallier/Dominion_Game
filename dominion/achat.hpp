@@ -21,14 +21,12 @@ class Achat{
     std::vector<const Carte*> victoires_domaine;
     std::vector<const Carte*> victoires_malediction;
     std::vector< std::vector<const Royaume*> > tab_royaumes;
+    int pileVide = 0;
     
-
     public:
     Achat();
     ~Achat();
-
     static std::map<int, const Carte*> mapAchat;
-
     std::vector<const Carte*>& getTresors_or();
     std::vector<const Carte*>& getTresors_argent();
     std::vector<const Carte*>& getTtresors_cuivre();
@@ -42,8 +40,13 @@ class Achat{
     void completerLigneAchatCentreAuto(int nombreJoueur);
     void afficherLigneAchatPhaseAchat(int nbTresors);
     const Carte* acheterCarte(int i);
-    std::map<int, const Carte*> afficherLigneAchatTresor(int nbTresors);
-    const Carte* acheterCarteTresor(std::map<int, const Carte*> mapAchat);
+    void afficherLigneAchatTresor(int nbTresors);
+    const Carte* acheterCarteTresor(int nbTresors);
+    void updatePileVideGauche(const std::vector<const Carte*> &v);
+    void updatePileVideCentreAuto(const std::vector<const Royaume*> &v);
+    int nbPileVide() const;
+
+
 };
 
 #endif

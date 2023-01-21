@@ -60,16 +60,6 @@ const Carte* Deck::piocherPremiereCarte(){
     return copie;
 }
 
-//Pas besoin
-/*void Deck::enleverCarteDeck(const Carte* const &c){
-    for (auto it = deck_cartes.begin(); it != deck_cartes.end(); ++it) {
-        if (*it == c) { // Si l'itérateur pointe vers l'élément à supprimer
-            deck_cartes.erase(it); // Supprime l'élément du vecteur
-            break; 
-        }
-    }
-}*/
-
 void Deck::ajouterCarteSurDeck(const Carte* const &c){
     //Ajoute la Carte en première position du vecteur deck_cartes
     deck_cartes.insert(deck_cartes.begin(), c);

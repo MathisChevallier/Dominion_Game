@@ -27,6 +27,10 @@ void Partie::nettoyer() {
     p_partieStatic = nullptr;
 }
 
+int Partie::getNumTour(){
+    return p_numTour;
+}
+
 std::string Partie::getNomPartie() const{ return p_nomPartie;}
 bool Partie::getFinPartie() const{ return p_finPartie;}
 Achat* Partie::getAchat() const{ return p_achat;}

@@ -5,6 +5,10 @@ ActionAttaque::ActionAttaque(const std::string &nom, int cout, const std::vector
 
 ActionAttaque::~ActionAttaque(){}
 
+std::string ActionAttaque::getType() const {
+    return "ActionAttaque";
+}
+
 std::vector<std::string> ActionAttaque::getEffetAttaque() const{
     return r_effetAttaque;
 }
@@ -16,7 +20,7 @@ void ActionAttaque::jouerCarte() const{
         effetCarte(s);
     }
     for(std::string s : (this)->getEffetAttaque()){
-        //Cet appel permet de pouvoir vérifier lespotentielles cartes ActionReaction dans les mains des adversaires
+        //Cet appel permet de pouvoir vérifier les potentielles cartes ActionReaction dans les mains des adversaires
         effetCarte(s);
     }
 }

@@ -21,7 +21,6 @@ class Deck{
     int getNbCartes() const;
     int getNbFoisCarteDansDeck(const Carte* c) const;
     const Carte* piocherPremiereCarte();
-    //void enleverCarteDeck(const Carte* const &c);
     void ajouterCarteSurDeck(const Carte* const &c);
     void melanger();
 };

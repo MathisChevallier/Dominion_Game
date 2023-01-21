@@ -19,21 +19,6 @@ int Carte::getCout() const{
 int Carte::getPrioCarte() const{
     return c_prio;
 }
-/*
-void Carte::setPrioCarte(int nouvellePrio){
-    c_prio = nouvellePrio;
-}
-*/
-
-
-void Carte::mettreDefausse(){
-    //Enlever de main (peut etre plus à mettre dans joueur)
-}
-
-void Carte::mettreRebus(){
-    //Enlever de main et deck (peut etre plus à mettre dans joueur)
-}
-
 
 std::ostream& operator<<(std::ostream& os, const Carte* const &c){
     os << c->getCouleurCarte() << c->getNom() << "\033[0m"; 

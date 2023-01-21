@@ -34,7 +34,6 @@ class Joueur{
     void defausserCarteDeLaMain(const Carte* const &c);
     void defausserPremiereCarteDuDeck();
     void defausserMain();
-    void acheterCarte(int i);
     void ajouterCarteALaMain(const Carte* const &c);
     void enleverCarteDeLaMain(const Carte* const &c);
     void ajouterCarteSurLeDeck(const Carte* const &c);
@@ -42,7 +41,10 @@ class Joueur{
     void TourDeJeu(int i);
     void ajouterPointsVictoire(int i);
     int compterPointsVictoire() const;
+    
+    virtual std::string getType() const = 0;
     virtual int getPrio(const Carte* carte) = 0;
+    virtual void acheterCarte(int i) = 0;
     virtual void phaseAction() = 0;
     virtual void phaseAchat() = 0;
     friend std::ostream& operator<<(std::ostream& os, const Joueur* const &j);

@@ -136,6 +136,7 @@ void Achat::completerLigneAchatCentreAuto(int nombreJoueur){
 }
 
 void Achat::afficherLigneAchatPhaseAchat(int nbTresors){
+    //effet de bord, rempli la map static mapAchat par les achats disponibles.
     unsigned numCarte = 1;
     Achat::mapAchat = {};
 
@@ -212,18 +213,24 @@ const Carte* Achat::acheterCarte(int achatCarte){
     }else {
         if(mapAchat.at(achatCarte)->getNom() == "Or"){
             tresors_or.erase(tresors_or.end() - 1);
+            updatePileVideGauche(tresors_or);
         }else if(mapAchat.at(achatCarte)->getNom() == "Argent"){
             tresors_argent.erase(tresors_argent.end() - 1);
+            updatePileVideGauche(tresors_argent);
         }else if(mapAchat.at(achatCarte)->getNom() == "Cuivre"){
             tresors_cuivre.erase(tresors_cuivre.end() - 1);
+            updatePileVideGauche(tresors_cuivre);
         }else if(mapAchat.at(achatCarte)->getNom() == "Province"){
             victoires_province.erase(victoires_province.end() - 1);
         }else if(mapAchat.at(achatCarte)->getNom() == "Duche"){
             victoires_duche.erase(victoires_duche.end() - 1);
+            updatePileVideGauche(victoires_duche);
         }else if(mapAchat.at(achatCarte)->getNom() == "Domaine"){
             victoires_domaine.erase(victoires_domaine.end() - 1);
+            updatePileVideGauche(victoires_domaine);
         }else if(mapAchat.at(achatCarte)->getNom() == "Malédiction"){
             victoires_malediction.erase(victoires_malediction.end() - 1);
+            updatePileVideGauche(victoires_malediction);
         }else {
             for(size_t i=0; i<tab_royaumes.size(); i++){
                 if(tab_royaumes.at(i).size()>0 && (tab_royaumes.at(i).at(0)->getNom() == mapAchat.at(achatCarte)->getNom())){
@@ -235,9 +242,9 @@ const Carte* Achat::acheterCarte(int achatCarte){
     }
 }
 
-std::map<int, const Carte*> Achat::afficherLigneAchatTresor(int nbTresors){
+void Achat::afficherLigneAchatTresor(int nbTresors){
     unsigned numCarte = 1;
-    std::map<int, const Carte*> mapAchat;
+    Achat::mapAchat = {};
     if(nbTresors >= 0){
         std::cout << "   " << numCarte << " - " << CUIVRE <<"     -> Cartes restantes: " <<tresors_cuivre.size()    <<   " | Cout: " << CUIVRE->getCout()  <<" | Valeur: " << CUIVRE->getValeur() << std::endl;
         mapAchat.insert(std::pair<int,const Carte*>(numCarte,CUIVRE));
@@ -253,10 +260,41 @@ std::map<int, const Carte*> Achat::afficherLigneAchatTresor(int nbTresors){
         mapAchat.insert(std::pair<int,const Carte*>(numCarte,OR));
         numCarte++;
     }
-    return mapAchat;
 }
 
-const Carte* Achat::acheterCarteTresor(std::map<int, const Carte*> mapAchat){
+const Carte* Achat::acheterCarteTresor(int nbTresors){
+    afficherLigneAchatTresor(nbTresors);      //effet de bord, rempli Achat::mapAchat
+    if(Joueur::j_joueurStatic->getType() == "JoueurAI"){
+        if(nbTresors >= OR->getCout()){
+            return OR;
+        }else if(nbTresors >= ARGENT->getCout()){
+            return ARGENT;
+        }else{ return CUIVRE;}
+    }else{
+        std::cout << "Entrez un chiffre pour acheter le trésor associé, 0 pour passer cette phase." << std::endl;
+        unsigned int achatCarte = 0;
+        std::cin >> achatCarte;
+        while ( achatCarte==0 || achatCarte > mapAchat.size()){
+            std::cerr << "\033[1;31mVous ne pouvez pas acheter la carte n°" << achatCarte << "\033[0m" << std::endl;
+            std::cout << "Entrez un chiffre entre 1 et "<<mapAchat.size()<<" pour acheter la carte, sinon 0 pour ne rien acheter.";
+            /*std::cin.clear(); 
+            std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );*/
+            std::cin >> achatCarte;
+        }
+        if(achatCarte==0){
+            return nullptr;
+        }else {
+            if(mapAchat.at(achatCarte)->getNom() == "Or"){
+                tresors_or.erase(tresors_or.end() - 1);
+            }else if(mapAchat.at(achatCarte)->getNom() == "Argent"){
+                tresors_argent.erase(tresors_argent.end() - 1);
+            }else if(mapAchat.at(achatCarte)->getNom() == "Cuivre"){
+                tresors_cuivre.erase(tresors_cuivre.end() - 1);
+            }
+            return mapAchat.at(achatCarte);
+        }
+
+    /*
     std::cout << "Entrez un chiffre pour acheter le trésor associé, 0 pour passer cette phase." << std::endl;
     unsigned int achatCarte = 0;
     std::cin >> achatCarte;
@@ -277,4 +315,22 @@ const Carte* Achat::acheterCarteTresor(std::map<int, const Carte*> mapAchat){
         }
         return mapAchat.at(achatCarte);
     }
+    */
+    }
+}
+
+void Achat::updatePileVideGauche(const std::vector<const Carte*> &v){
+    if(v.size() == 0){
+        pileVide++;
+    }
+}
+
+void Achat::updatePileVideCentreAuto(const std::vector<const Royaume*> &v){
+    if(v.size() == 0){
+        pileVide++;
+    }
+}
+
+int Achat::nbPileVide() const{
+    return pileVide;
 }

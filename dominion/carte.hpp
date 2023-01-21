@@ -16,12 +16,10 @@ class Carte{
     virtual ~Carte();
     std::string getNom() const;
     int getPrioCarte() const;
-    //void setPrioCarte(int i);
     std::string getCouleurCarte() const;
-    //virtual std::string getDescriptionEffet();
     int getCout() const;
-    void mettreDefausse();
-    void mettreRebus();
+    
+    virtual std::string getType() const = 0;
     virtual void jouerCarte() const = 0;     
     friend std::ostream& operator<<(std::ostream& os, const Carte* const &c);
 };

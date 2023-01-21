@@ -4,6 +4,10 @@ Tresor::Tresor(const std::string &nom, int cout, int valeur, int priorite, const
     
 Tresor::~Tresor(){}
 
+std::string Tresor::getType() const {
+    return "Tresor";
+}
+
 int Tresor::getValeur() const{
     return t_valeur;
 }

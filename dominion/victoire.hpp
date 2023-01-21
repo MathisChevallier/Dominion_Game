@@ -9,6 +9,7 @@ class Victoire : public Carte{
     public:
     Victoire(const std::string &nom, int cout, int pointsVictoire, int priorite, const std::string &couleur = "\033[32m"); //La couleur d'une carte victoire est par défaut verte
     ~Victoire();
+    std::string getType() const override;
     int getPoints() const;
     void jouerCarte() const;
 };

@@ -5,6 +5,10 @@ ActionReaction::ActionReaction(const std::string &nom, int cout, const std::vect
 
 ActionReaction::~ActionReaction(){}
 
+std::string ActionReaction::getType() const {
+    return "ActionReaction";
+}
+
 std::vector<std::string> ActionReaction::getEffetReaction() const{
     return r_effetReaction;
 }

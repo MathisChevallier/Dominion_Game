@@ -9,6 +9,7 @@ class Tresor : public Carte{
     public:
     Tresor(const std::string &nom, int cout, int valeur, int priorite, const std::string &couleur = "\033[33m"); //La couleur d'une carte tresor est par défaut jaune
     ~Tresor();
+    std::string getType() const override;
     int getValeur() const;
     void jouerCarte() const;
 };

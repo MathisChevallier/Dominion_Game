@@ -45,6 +45,7 @@ void MainJeu::ajouterAction(int n){
     
 void MainJeu::ajouterTresorTour(int n){
     m_nbTresorTour += n;
+    if(m_nbTresorTour<0){m_nbTresorTour = 0;}
 }
     
 void MainJeu::ajouterAchatTour(int n){

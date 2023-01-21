@@ -4,6 +4,10 @@ Victoire::Victoire(const std::string &nom, int cout, int pointsVictoire, int pri
     
 Victoire::~Victoire(){}
 
+std::string Victoire::getType() const {
+    return "Victoire";
+}
+
 int Victoire::getPoints() const{
     return v_points;
 }
