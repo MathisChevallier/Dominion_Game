@@ -98,7 +98,7 @@ void MainJeu::enleverCarteJouee(const Carte* const &c){
 
 bool MainJeu::contientCarteAction(){
     for(const Carte* c : m_cartes){
-        if (dynamic_cast<const Action*>(c) != nullptr || dynamic_cast<const ActionAttaque*>(c) != nullptr || dynamic_cast<const ActionReaction*>(c) != nullptr) {
+        if (c->getType() == "Action" || c->getType() == "ActionAttaque" || c->getType() == "ActionReaction") {
             return true;
         }
     }

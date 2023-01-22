@@ -48,7 +48,6 @@ std::vector<const Carte*>& Achat::getVictoires_malediction(){return victoires_ma
 
 void Achat::afficherLigneAchat(){
     std::cout<<"Voici la ligne d'achat : \n";
-
     std::cout<< "   " << OR <<"       -> Cartes restantes: ";
     if(tresors_or.size()>0) {std::cout<<tresors_or.size();} else {std::cout<<"Vide";}
     std::cout<<" | Cout: " << OR->getCout()      <<" | Valeur: " << OR->getValeur() << std::endl;
@@ -168,7 +167,7 @@ void Achat::afficherLigneAchatPhaseAchat(int nbTresors){
     }
     if(nbTresors >= 5){
         if(victoires_duche.size()>0){
-            std::cout << "   " << numCarte << " - " << DUCHE <<"      -> Cartes restantes: " <<victoires_duche.size()<<      " | Cout: " << DUCHE->getCout()<<" | Points: " << DUCHE->getPoints()<< std::endl;
+            std::cout << "   " << numCarte << " - " << DUCHE <<"      -> Cartes restantes: " <<victoires_duche.size()<<      "  | Cout: " << DUCHE->getCout()<<" | Points: " << DUCHE->getPoints()<< std::endl;
             mapAchat.insert(std::pair<int,const Carte*>(numCarte,DUCHE));
             numCarte++;
         }
@@ -263,7 +262,7 @@ void Achat::afficherLigneAchatTresor(int nbTresors){
 }
 
 const Carte* Achat::acheterCarteTresor(int nbTresors){
-    afficherLigneAchatTresor(nbTresors);      //effet de bord, rempli Achat::mapAchat
+    afficherLigneAchatTresor(nbTresors); //effet de bord, rempli Achat::mapAchat
     if(Joueur::j_joueurStatic->getType() == "JoueurAI"){
         if(nbTresors >= OR->getCout()){
             return OR;
@@ -277,8 +276,6 @@ const Carte* Achat::acheterCarteTresor(int nbTresors){
         while ( achatCarte==0 || achatCarte > mapAchat.size()){
             std::cerr << "\033[1;31mVous ne pouvez pas acheter la carte n°" << achatCarte << "\033[0m" << std::endl;
             std::cout << "Entrez un chiffre entre 1 et "<<mapAchat.size()<<" pour acheter la carte, sinon 0 pour ne rien acheter.";
-            /*std::cin.clear(); 
-            std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );*/
             std::cin >> achatCarte;
         }
         if(achatCarte==0){
@@ -293,29 +290,6 @@ const Carte* Achat::acheterCarteTresor(int nbTresors){
             }
             return mapAchat.at(achatCarte);
         }
-
-    /*
-    std::cout << "Entrez un chiffre pour acheter le trésor associé, 0 pour passer cette phase." << std::endl;
-    unsigned int achatCarte = 0;
-    std::cin >> achatCarte;
-    while ( achatCarte==0 || achatCarte > mapAchat.size()){
-        std::cerr << "\033[1;31mVous ne pouvez pas acheter la carte n°" << achatCarte << "\033[0m" << std::endl;
-        std::cout << "Entrez un chiffre entre 1 et "<<mapAchat.size()<<" pour acheter la carte, sinon 0 pour ne rien acheter.";
-        std::cin >> achatCarte;
-    }
-    if(achatCarte==0){
-        return nullptr;
-    }else {
-        if(mapAchat.at(achatCarte)->getNom() == "Or"){
-            tresors_or.erase(tresors_or.end() - 1);
-        }else if(mapAchat.at(achatCarte)->getNom() == "Argent"){
-            tresors_argent.erase(tresors_argent.end() - 1);
-        }else if(mapAchat.at(achatCarte)->getNom() == "Cuivre"){
-            tresors_cuivre.erase(tresors_cuivre.end() - 1);
-        }
-        return mapAchat.at(achatCarte);
-    }
-    */
     }
 }
 

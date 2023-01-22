@@ -57,7 +57,6 @@ void Partie::creerJoueurAI(int i){
 void Partie::tourComplet(){
     unsigned int nbTourDeJeu = p_numTour;
     while(!((this)->testFinPartie())){
-    //while(p_numTour < 30){
         Joueur::j_joueurStatic = p_joueurs[0];
         //faire jouer le joueur en début de p_joueur puis l'enlever et le mettre à la fin du vecteur
         if(nbTourDeJeu % p_joueurs.size() == 1){
@@ -72,15 +71,17 @@ void Partie::tourComplet(){
         std::rotate(p_joueurs.begin(), p_joueurs.begin() + 1, p_joueurs.end());
         if(p_numTour % p_joueurs.size() == 0){
             std::cout << "Fin du tour " << nbTourDeJeu/p_joueurs.size() << "." << std::endl;
-            std::cout << "Voulez vous continuer la partie (o ou n) : ";
-            char suitePartie = 'o';
+            std::cout << "Voulez vous continuer la partie (O ou N) : ";
+            char suitePartie = 'O';
             std::cin >> suitePartie;
-            while(suitePartie != 'o' && suitePartie != 'n'){
+            while(suitePartie != 'O' && suitePartie != 'N'){
                 std::cerr << "\033[1;31m" << suitePartie << " n'est pas une réponse convenable. \033[0m" << std::endl;
-                std::cout << "Voulez vous continuer la partie (o ou n) : ";
+                std::cin.clear(); 
+                std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
+                std::cout << "Voulez vous continuer la partie (O ou N) : ";
                 std::cin >> suitePartie;
             }
-            if(suitePartie == 'n'){
+            if(suitePartie == 'N'){
                 std::cout << "Partie " << p_nomPartie  << " sauvegardée." << std::endl;
                 p_numTour++;
                 break;
@@ -135,7 +136,6 @@ bool Partie::testFinPartie(){
 }
 
 void Partie::finPartie(){
-    //Regarder si pile Province vide ou si 3 piles vides
     std::cout << "\033[1;4mRésultat :\033[0m " << std::endl << std::endl;
     int maxPoints = INT_MIN;
     Joueur* jPremier;
@@ -157,11 +157,22 @@ void Partie::finPartie(){
     std::cout << "Le gagnant de la partie est " << jPremier << "avec " << maxPoints << " points de victoire." << std::endl << std::endl;
 }
 
-void Partie::choixCarteAleatoirePourAchat(std::vector<const Royaume*> cartesPartie){
-    //Remettre cartes utilisees à zéro si une partie a déjà été créé
-    Partie::p_cartes_utilisees = {};
+void Partie::choixCarteAleatoirePourAchat(std::vector<const Royaume*> cartesPartie, int nbr){
+    //Mélanger les cartes du vecteur
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(cartesPartie.begin(), cartesPartie.end(), g);
+
     //le tableau en argument est deja melange
-    for(size_t i = 0; i<10; i++){
+    for(int i = 0; i<nbr; i++){
         p_cartes_utilisees.push_back(cartesPartie.at(i));
     }
+    sort(p_cartes_utilisees.begin(), p_cartes_utilisees.end(), triCarte);
+}
+
+bool triCarte(const Royaume* a, const Royaume* b) {
+    if (a->getCout() == b->getCout()) {
+        return a->getNom() < b->getNom();
+    }
+    return a->getCout() < b->getCout();
 }

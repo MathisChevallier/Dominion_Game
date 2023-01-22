@@ -71,7 +71,6 @@ void Deck::melanger(){
     std::random_device rd;
     //crée un générateur de nombres aléatoires de type std::mt19937 initialisé avec une graine générée par rd
     std::mt19937 g(rd());
-
     //shuffle permet de mélanger un vecteur à partir de son itérateur de début et de fin et d'un générateur de nombre aléatoire
     std::shuffle(deck_cartes.begin(), deck_cartes.end(), g);
 }

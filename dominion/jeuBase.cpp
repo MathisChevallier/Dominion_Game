@@ -85,5 +85,30 @@ void listeCarte(){
 }
 
 std::vector<const Royaume*> setCarte1(){
-    return {ATELIER, AVENTURIER, BIBLIOTHEQUE, BUCHERON, CAVE, CHAMBREDUCONSEIL, CHANCELIER, CHAPELLE, FESTIN, FESTIVAL, FORGERON, JARDINS, LABORATOIRE, MARCHE, MINE, PRETEURSURGAGES, RENOVATION, SALLEDUTRONE, VILLAGE, BUREAUCRATE, ESPION, MILICE, SORCIERE, VOLEUR, DOUVES};
+    return {ATELIER, AVENTURIER, BIBLIOTHEQUE, BUCHERON, BUREAUCRATE, CAVE, CHAMBREDUCONSEIL, CHANCELIER, CHAPELLE, DOUVES, ESPION, FESTIN, FESTIVAL, FORGERON, JARDINS, LABORATOIRE, MARCHE, MILICE, MINE, PRETEURSURGAGES, RENOVATION, SALLEDUTRONE, SORCIERE, VILLAGE, VOLEUR};
+}
+
+extern std::vector<const Royaume*> setPremierePartie(){
+    std::cout << "  1 - \033[1;4mLes première parties :\033[0m Atelier, Bûcheron, Cave, Douves, Forgeron, Marché, Milice, Mine, Rénovation, Village." << std::endl;
+    return {CAVE, DOUVES, ATELIER, BUCHERON, VILLAGE, FORGERON, MILICE, RENOVATION, MARCHE, MINE};
+}
+
+extern std::vector<const Royaume*> setRichessesTresors(){
+    std::cout << "  2 - \033[1;4mRichesses et trésors :\033[0m Aventurier, Bureaucrate, Chancelier, Chapelle, Festin, Laboratoire, Marché, Mine, Prêteur sur gages, Salle du Trône." << std::endl;
+    return {CHAPELLE, CHANCELIER, BUREAUCRATE, FESTIN, PRETEURSURGAGES, SALLEDUTRONE, AVENTURIER, LABORATOIRE, MARCHE, MINE};
+}
+
+extern std::vector<const Royaume*> setInteraction(){
+    std::cout << "  3 - \033[1;4mInteraction :\033[0m Bibliothèque, Bureaucrate, Chambre du Conseil, Chancelier, DOuves, Espion, Festival, Milice, Village, Voleur." << std::endl;
+    return {DOUVES, CHANCELIER, VILLAGE, BUREAUCRATE, ESPION, MILICE, VOLEUR, BIBLIOTHEQUE, CHAMBREDUCONSEIL, FESTIVAL};
+}
+
+extern std::vector<const Royaume*> setChangementTaille(){
+    std::cout << "  4 - \033[1;4mChangement de taille :\033[0m Atelier, Bûcheron, Cave, Chapelle, Festin, Jardins, Laboratoire, Sorcière, Village, Voleur." << std::endl;
+    return {CAVE, CHAPELLE, ATELIER, BUCHERON, VILLAGE, FESTIN, JARDINS, VOLEUR, LABORATOIRE, SORCIERE};
+}
+
+extern std::vector<const Royaume*> setPlaceDuVillage(){
+    std::cout << "  5 - \033[1;4mPlace du Village :\033[0m Bibliothèque, Bûcheron, Bureaucrate, Cave, Festival, Forgeron, Marché, Rénovation, Salle du Trône, Village." << std::endl;
+    return {CAVE, BUCHERON, VILLAGE, BUREAUCRATE, FORGERON, RENOVATION, SALLEDUTRONE, BIBLIOTHEQUE, FESTIVAL, MARCHE};
 }

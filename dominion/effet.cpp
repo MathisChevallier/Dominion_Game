@@ -104,14 +104,16 @@ void effetCarte(const std::string &s){
                 const Carte* c = Joueur::j_joueurStatic->devoilerCarte();
                 if(dynamic_cast<const Royaume*>(c) != nullptr){
                     char choix;
-                    std::cout << "Voulez vous mettre la carte " << c << "de côté (o ou n) : ";
+                    std::cout << "Voulez vous mettre la carte " << c << "de côté (O ou N) : ";
                     std::cin >> choix;
-                    while(choix != 'o' && choix != 'n'){
+                    while(choix != 'O' && choix != 'N'){
                         std::cerr << "\033[1;31m" << choix << " n'est pas une réponse convenable. \033[0m" << std::endl;
-                        std::cout << "Voulez vous mettre la carte " << c << "de côté (o ou n) : ";
+                        std::cin.clear(); 
+                        std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
+                        std::cout << "Voulez vous mettre la carte " << c << "de côté (O ou N) : ";
                         std::cin >> choix;
                     }
-                    if(choix == 'o'){
+                    if(choix == 'O'){
                         cartesActionsDeCote.push_back(c);
                     }
                     else{
@@ -180,8 +182,10 @@ void effetCarte(const std::string &s){
                 unsigned int choixCarte;
                 std::cout << "Pour défausser une carte, tapez son numéro sinon tapez 0 : ";
                 std::cin >> choixCarte;
-                while(choixCarte >= numCarte){
+                while(std::cin.fail() || choixCarte >= numCarte){
                     std::cerr << "\033[1;31m" << choixCarte << " n'est pas une réponse convenable. \033[0m" << std::endl;
+                    std::cin.clear(); 
+                    std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
                     std::cout << "Pour défausser une carte, tapez son numéro sinon tapez 0 : ";
                     std::cin >> choixCarte;
                 }
@@ -250,8 +254,10 @@ void effetCarte(const std::string &s){
                 unsigned int choixCarte;
                 std::cout << "Pour écarter une carte, tapez son numéro sinon tapez 0 : ";
                 std::cin >> choixCarte;
-                while(choixCarte >= numCarte){
-                    std::cerr << "\033[1;31m" << choixCarte << " n'est pas une réponse convenable. \033[0m" << std::endl;
+                while(std::cin.fail() || choixCarte >= numCarte){
+                    std::cerr << "\033[1;31mCe n'est pas une réponse convenable. \033[0m" << std::endl;
+                    std::cin.clear(); 
+                    std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
                     std::cout << "Pour écarter une carte, tapez son numéro sinon tapez 0 : ";
                     std::cin >> choixCarte;
                 }
@@ -305,14 +311,16 @@ void effetCarte(const std::string &s){
 
                 }else{
                     char choix;
-                    std::cout << jTour << " choisit si la carte est défaussée ou replacée sur le deck (d ou r) : ";
+                    std::cout << jTour << " choisit si la carte est défaussée ou replacée sur le deck (D ou R) : ";
                     std::cin >> choix;
-                    while(choix != 'd' && choix != 'r'){
+                    while(choix != 'D' && choix != 'R'){
                         std::cerr << "\033[1;31m" << choix << " n'est pas une réponse convenable. \033[0m" << std::endl;
-                        std::cout << jTour << " choisit si la carte est défaussée ou replacée sur le deck (d ou r) : ";
+                        std::cin.clear(); 
+                        std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
+                        std::cout << jTour << "choisit si la carte est défaussée ou replacée sur le deck (D ou R) : ";
                         std::cin >> choix;
                     }
-                    if(choix == 'd'){
+                    if(choix == 'D'){
                         Joueur::j_joueurStatic->getDefausse()->ajouterCarteDefausse(c);
                     }
                     else{
@@ -365,6 +373,8 @@ void effetCarte(const std::string &s){
                         std::cin >> choixCarte;
                         while(choixCarte >= numCarte || choixCarte == 0){
                             std::cerr << "\033[1;31m" << choixCarte << " n'est pas une réponse convenable. \033[0m" << std::endl;
+                            std::cin.clear(); 
+                            std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
                             std::cout << "Défaussez une carte, tapez son numéro : ";
                             std::cin >> choixCarte;
                         }
@@ -581,8 +591,10 @@ void effetCarte(const std::string &s){
                 unsigned int choixCarte;
                 std::cout << "Pour jouer une carte deux fois, tapez son numéro sinon tapez 0 : ";
                 std::cin >> choixCarte;
-                while(choixCarte > carteRoyaume.size()){
-                    std::cerr << "\033[1;31m" << choixCarte << " n'est pas une réponse convenable. \033[0m" << std::endl;
+                while(std::cin.fail() || choixCarte > carteRoyaume.size()){
+                    std::cerr << "\033[1;31mCe n'est pas une réponse convenable. \033[0m" << std::endl;
+                    std::cin.clear(); 
+                    std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
                     std::cout << "Pour jouer une carte deux fois, tapez son numéro sinon tapez 0 : ";
                     std::cin >> choixCarte;
                 }
@@ -637,18 +649,18 @@ void effetCarte(const std::string &s){
                     carteTresorVolees.push_back(carteTresorVoleesJoueur[0]);
                 }
                 else{
-                    unsigned int choixCarte2 = 0;
+                    unsigned int choixCarte = 0;
                     if(jTour->getType() == "JoueurAI"){                
                         const Tresor* tInit = nullptr;
                         int i=0;
                         for(const Tresor* t : carteTresorVoleesJoueur){
                             if( tInit==nullptr || (t->getValeur()) > (tInit->getValeur())){
-                                choixCarte2 = i;
+                                choixCarte = i;
                             }
                             i++;
                         }
-                        std::cout << "Le "<<jTour<<" a choisi d'ecarter la carte "<< carteTresorVoleesJoueur.at(choixCarte2)<<" de "<< j << std::endl;
-                        choixCarte2++;
+                        std::cout << "Le "<<jTour<<" a choisi d'ecarter la carte "<< carteTresorVoleesJoueur.at(choixCarte)<<" de "<< j << std::endl;
+                        choixCarte++;
                     }else{
                         std::cout << "Voici les cartes Trésors dévoilées :" << std::endl;
                         int numCarte = 1;
@@ -657,15 +669,17 @@ void effetCarte(const std::string &s){
                             numCarte++;
                         }
                         std::cout << "Ecarter la carte Trésor de votre choix, tapez son numéro : ";
-                        std::cin >> choixCarte2;
-                        while(choixCarte2 > carteTresorVoleesJoueur.size()  && choixCarte2 < 1){
-                            std::cerr << "\033[1;31m" << choixCarte2 << " n'est pas une réponse convenable. \033[0m" << std::endl;
+                        std::cin >> choixCarte;
+                        while(choixCarte > carteTresorVoleesJoueur.size()  && choixCarte < 1){
+                            std::cerr << "\033[1;31m" << choixCarte << " n'est pas une réponse convenable. \033[0m" << std::endl;
+                            std::cin.clear(); 
+                            std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
                             std::cout << "Ecarter la carte Trésor de votre choix, tapez son numéro : ";
-                            std::cin >> choixCarte2;
+                            std::cin >> choixCarte;
                         }
                     }
-                    carteTresorVolees.push_back(carteTresorVoleesJoueur[choixCarte2 - 1]);
-                    if(choixCarte2 == 1){
+                    carteTresorVolees.push_back(carteTresorVoleesJoueur[choixCarte - 1]);
+                    if(choixCarte == 1){
                         Joueur::j_joueurStatic->getDefausse()->ajouterCarteDefausse(carteTresorVoleesJoueur[1]);
                     }
                     else{
@@ -697,8 +711,10 @@ void effetCarte(const std::string &s){
                 }
                 std::cout << "Choisissez la carte Trésor de votre choix, tapez son numéro sinon tapez 0 : ";
                 std::cin >> choix;
-                while(choix > carteTresorVolees.size()){
-                    std::cerr << "\033[1;31m" << choix << " n'est pas une réponse convenable. \033[0m" << std::endl;
+                while(std::cin.fail() || choix > carteTresorVolees.size()){
+                    std::cerr << "\033[1;31mCe n'est pas une réponse convenable. \033[0m" << std::endl;
+                    std::cin.clear(); 
+                    std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
                     std::cout << "Choisissez la carte Trésor de votre choix, tapez son numéro sinon tapez 0 : ";
                     std::cin >> choix;
                 }
@@ -741,14 +757,16 @@ bool effetAttaque(Joueur* j){
             for(const Carte* c : j->getMainJeu()->getMain()){
                 char choixJ;
                 if (c->getType() == "ActionReaction") {
-                    std::cout << j << "peut jouer la carte " << c << "pour éviter l'Attaque (o ou n) : ";
+                    std::cout << j << "peut jouer la carte " << c << " pour éviter l'Attaque, la jouer ? (O ou N) : ";
                     std::cin >> choixJ;
-                    while(choixJ != 'o' && choixJ != 'n'){
+                    while(choixJ != 'O' && choixJ != 'N'){
                         std::cerr << "\033[1;31m" << choixJ << " n'est pas une réponse convenable. \033[0m" << std::endl;
-                        std::cout << j << " peut jouer la carte " << c << "pour éviter l'Attaque (o ou n) : ";
+                        std::cin.clear(); 
+                        std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
+                        std::cout << j << " peut jouer la carte " << c << " pour éviter l'Attaque la jouer ? (O ou N) : ";
                         std::cin >> choixJ;
                     }
-                    if(choixJ == 'o'){
+                    if(choixJ == 'O'){
                         return true;
                     }
                     break;

@@ -12,6 +12,7 @@
 
 class Achat;
 class JoueurHumain;
+class JoueurAI;
 
 class Partie{
     std::string p_nomPartie;
@@ -24,7 +25,6 @@ class Partie{
     public:
     static std::vector<const Royaume*> p_cartes_utilisees;
     static Partie* p_partieStatic; //Partie qui est en cours
-
     Partie(std::string s);
     ~Partie();
     static void nettoyer();
@@ -43,7 +43,9 @@ class Partie{
     void detailPartie();
     bool testFinPartie();
     void finPartie();
-    void choixCarteAleatoirePourAchat(std::vector<const Royaume*> cartesPartie);
+    void choixCarteAleatoirePourAchat(std::vector<const Royaume*> cartesPartie, int nbr);
 };
+
+bool triCarte(const Royaume* a, const Royaume* b);
 
 #endif

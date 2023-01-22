@@ -39,11 +39,11 @@ class Achat{
     void completerLigneAchatGauche(int nombreJoueur);
     void completerLigneAchatCentreAuto(int nombreJoueur);
     void afficherLigneAchatPhaseAchat(int nbTresors);
-    const Carte* acheterCarte(int i);
+    const Carte* acheterCarte(int nbTresors);
     void afficherLigneAchatTresor(int nbTresors);
     const Carte* acheterCarteTresor(int nbTresors);
-    void updatePileVideGauche(const std::vector<const Carte*> &v);
-    void updatePileVideCentreAuto(const std::vector<const Royaume*> &v);
+    void updatePileVideGauche(const std::vector<const Carte*> &c);
+    void updatePileVideCentreAuto(const std::vector<const Royaume*> &c);
     int nbPileVide() const;
 
 
