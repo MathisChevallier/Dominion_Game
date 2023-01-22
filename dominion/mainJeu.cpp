@@ -107,7 +107,7 @@ bool MainJeu::contientCarteAction(){
 
 
 std::ostream& operator<<(std::ostream& os, const MainJeu* const &m){
-    os << "Vous avez " << m->getActionsAJouer() << " Action(s), " << m->getAchat() << " Achat(s) et " << m->getTresorTour() << " Trésor(s).\nMain : " << std::endl;
+    os << "Vous avez " << m->getActionsAJouer() << " Action(s), " << m->getAchat() << " Achat(s) et " << m->getTresorTour() << " Trésor(s).\n\nMain : " << std::endl;
     for(const Carte* c : m->getListeCartesMain()){
         if(dynamic_cast<const Royaume*>(c) != nullptr) {
             const Royaume* r = static_cast<const Royaume*>(c);
@@ -119,7 +119,7 @@ std::ostream& operator<<(std::ostream& os, const MainJeu* const &m){
         }
         else{
             const Tresor* t = static_cast<const Tresor*>(c);
-            std::cout << "  " << t->getCouleurCarte() << t->getNom() << " : " << t->getValeur() << " Trésor(s)\033[0m" << std::endl; 
+            std::cout << "  " << t->getCouleurCarte() << t->getNom() << " : " << t->getValeur() << " Trésor(s)\033[0m\n" << std::endl; 
         }
     }
     return os;

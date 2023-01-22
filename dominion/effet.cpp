@@ -281,6 +281,7 @@ void effetCarte(const std::string &s){
             if(reaction==false){
                 Joueur::j_joueurStatic = j;
                 const Carte* c = Joueur::j_joueurStatic->devoilerCarte();
+
                 if(jTour->getType()=="JoueurAI"){
                     if(jTour->getNomJoueur() != j->getNomJoueur()){
                         if(c->getType()=="Victoire" || c->getType()=="RoyaumeVictoire" || (c->getNom() == "Cuivre" && (Partie::p_partieStatic->getNumTour()/Partie::p_partieStatic->getJoueurPartie().size()) > 6)
@@ -289,18 +290,19 @@ void effetCarte(const std::string &s){
                             Joueur::j_joueurStatic->ajouterCarteSurLeDeck(c);
                         }else{
                             std::cout << jTour << " choisit de défausser la carte "<<c<<".\n";
-                            Joueur::j_joueurStatic->defausserCarteDeLaMain(c);
+                             Joueur::j_joueurStatic->getDefausse()->ajouterCarteDefausse(c);
                         }
                     }else{
                         if(c->getType()=="Victoire" || c->getType()=="RoyaumeVictoire" || (((Partie::p_partieStatic->getNumTour()/Partie::p_partieStatic->getJoueurPartie().size()) > 6) && (c->getNom() == "Cuivre"))
                          || c->getPrioCarte()<=10){
                             std::cout << jTour << " choisit de défausser la carte "<<c<<".\n";
-                            Joueur::j_joueurStatic->defausserCarteDeLaMain(c);
+                            Joueur::j_joueurStatic->getDefausse()->ajouterCarteDefausse(c);
                         }else{
                             std::cout << jTour << " choisit de replacer sur le deck la carte "<<c<<".\n";
                             Joueur::j_joueurStatic->ajouterCarteSurLeDeck(c);
                         }
                     }
+
                 }else{
                     char choix;
                     std::cout << jTour << " choisit si la carte est défaussée ou replacée sur le deck (d ou r) : ";
@@ -311,7 +313,7 @@ void effetCarte(const std::string &s){
                         std::cin >> choix;
                     }
                     if(choix == 'd'){
-                        Joueur::j_joueurStatic->defausserCarteDeLaMain(c);
+                        Joueur::j_joueurStatic->getDefausse()->ajouterCarteDefausse(c);
                     }
                     else{
                         Joueur::j_joueurStatic->ajouterCarteSurLeDeck(c);
@@ -381,7 +383,7 @@ void effetCarte(const std::string &s){
         if(Joueur::j_joueurStatic->getType() == "JoueurAI"){
             const Carte* cTresorEcarte = nullptr;
             for(const Carte *c : Joueur::j_joueurStatic->getMainJeu()->getListeCartesMain()){
-                if(dynamic_cast<const Tresor*>(c) != nullptr && (cTresorEcarte == nullptr || dynamic_cast<const Tresor*>(c)->getValeur() > dynamic_cast<const Tresor*>(cTresorEcarte)->getValeur() )){
+                if(dynamic_cast<const Tresor*>(c) != nullptr && c->getType()!="Or" && (cTresorEcarte == nullptr || dynamic_cast<const Tresor*>(c)->getValeur() > dynamic_cast<const Tresor*>(cTresorEcarte)->getValeur() )){
                     cTresorEcarte = c;
                 }
             }

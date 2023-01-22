@@ -56,8 +56,8 @@ void Partie::creerJoueurAI(int i){
 
 void Partie::tourComplet(){
     unsigned int nbTourDeJeu = p_numTour;
-    //while(!((this)->finPartie())){
-    while(p_numTour < 30){
+    while(!((this)->testFinPartie())){
+    //while(p_numTour < 30){
         Joueur::j_joueurStatic = p_joueurs[0];
         //faire jouer le joueur en début de p_joueur puis l'enlever et le mettre à la fin du vecteur
         if(nbTourDeJeu % p_joueurs.size() == 1){
@@ -126,8 +126,12 @@ void Partie::detailPartie(){
 }
 
 bool Partie::testFinPartie(){
-    //Regarder si pile Province vide ou si 3 piles vides
-    return true;
+     if(p_achat->nbPileVide() == 3 || p_achat->getVictoires_province().size() == 0){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 void Partie::finPartie(){

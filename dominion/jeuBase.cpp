@@ -38,7 +38,7 @@ const ActionAttaque *MILICE      = new ActionAttaque("Milice"     , 4, {"+1 Tres
 const ActionAttaque *SORCIERE    = new ActionAttaque("Sorciere"   , 5, {"+1 Carte", "+1 Carte"}, "+2 Cartes ; Tous vos adversaires reçoivent une carte Malédiction", {"effet Sorciere"}, 60);
 const ActionAttaque *VOLEUR      = new ActionAttaque("Voleur"     , 4, {}, "Tous vos adversaires dévoilent les 2 premières cartes de leur deck. S'ils dévoilent des cartes Trésor, ils en écartent 1 de votre choix. Parmi ces cartes Tresor écartées, recevez celle de votre choix. Les autres cartes dévoilées sont défaussées.", {"effet Voleur"}, 35);
         
-const ActionReaction *DOUVES = new ActionReaction("Douves", 2, {"+1 Carte", "+1 Carte"}, "\033[0m+2 Cartes ; \033[34mLorsqu'un adversaire joue une carte Attaque, vous pouvez dévoiler cette carte de votre main. Dans ce cas, l'Attaque n'a pas d'effet sur vous. \033[0m", {"effet Douves"}, 30);
+const ActionReaction *DOUVES = new ActionReaction("Douves", 2, {"+1 Carte", "+1 Carte"}, "\033[0m+2 Cartes ; \033[34mLorsqu'un adversaire joue une carte Attaque, vous pouvez dévoiler cette carte de votre main. Dans ce cas, l'Attaque n'a pas d'effet sur vous.\033[0m", {"effet Douves"}, 30);
 
 const RoyaumeVictoire *JARDINS = new RoyaumeVictoire("Jardins", 4, {"effet Jardins"}, "\033[32mVaut 1 Point de Victoire pour chaque 10 cartes dans votre deck (arrondi à l'unité inférieure). \033[0m", 35);
 
