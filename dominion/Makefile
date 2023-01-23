@@ -1,16 +1,16 @@
 CXX=g++
 CXXFLAGS=-std=c++17 -Wall -Wextra -Werror
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) $< -c -o $@
+%.o: fichierCPP/%.cpp
+	$(CXX) $(CXXFLAGS) $< -c -o fichierCPP/$@
 
-dominion: carte.o tresor.o victoire.o royaume.o action.o actionAttaque.o actionReaction.o royaumeVictoire.o jeuBase.o deck.o mainJeu.o defausse.o joueur.o joueurHumain.o joueurAI.o partie.o rebut.o achat.o dominion.o effet.o main.o
-	$(CXX) $^ -o $@
+dominion: fichierCPP/carte.o fichierCPP/tresor.o fichierCPP/victoire.o fichierCPP/royaume.o fichierCPP/action.o fichierCPP/actionAttaque.o fichierCPP/actionReaction.o fichierCPP/royaumeVictoire.o fichierCPP/actionVictoire.o fichierCPP/jeuBase.o fichierCPP/extIntrigue.o fichierCPP/deck.o fichierCPP/mainJeu.o fichierCPP/defausse.o fichierCPP/joueur.o fichierCPP/joueurHumain.o fichierCPP/joueurAI.o fichierCPP/rebut.o fichierCPP/achat.o fichierCPP/partie.o fichierCPP/dominion.o fichierCPP/effet.o fichierCPP/main.o
+	$(CXX) $^ -o $@ -lsfml-graphics -lsfml-window -lsfml-system
 
 .PHONY: run clean
 
-run: dominion
+run: ./dominion
 	./$<
 
 clean:
-	rm -f *.o *~ *.core 
+	rm -f fichierCPP/*.o *~ *.core 
