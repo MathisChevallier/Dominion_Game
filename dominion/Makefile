@@ -9,7 +9,7 @@ dominion: fichierCPP/carte.o fichierCPP/tresor.o fichierCPP/victoire.o fichierCP
 
 .PHONY: run clean
 
-run: ./dominion
+play: ./dominion
 	./$<
 
 clean:
