@@ -16,7 +16,7 @@ Il est possible de jouer contre l'ordinateur, qui s'adapte à chaque tour aux co
 
 ## Commande pour lancer le jeu :
  
-Téléchargez le code source puis effectuez la commande "make run". Le code se compilera si besoin et le jeu se lancera. Il ne vous reste plus qu'à suivre les instructions à l'écran.
+Téléchargez les archives 'src' et 'dominion' puis effectuez la commande "make run". Le code se compilera si besoin et le jeu se lancera. Il ne vous reste plus qu'à suivre les instructions à l'écran.
  
 Commande pour tester fuite mémoire : valgrind -s --leak-check=full ./dominion
 Il faut au préalable avoir valgrind d'installé.
