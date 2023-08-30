@@ -5,7 +5,7 @@ Création du jeu de société Dominion.
 ## Ressources :
 ![Enonce](Enonce-Projet.pdf)  
 
-![Règles du jeu](Dominion_base_regles_vf.pdf)
+![Règles du jeu](Domion_base_regles_vf.pdf)
 
  ## Lancer jeu :
  
