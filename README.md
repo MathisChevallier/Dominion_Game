@@ -27,20 +27,24 @@ Il faut au préalable avoir valgrind d'installé.
 Interface graphique:
 <img width="1024" alt="Dominion1" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/9d4639fa-b356-4fb5-89e5-ee37c940def1">
 
-![Dominion2](https://github.com/MathisChevallier/Dominion_Game/assets/118447835/2868a707-94b5-4887-8198-e61b8aba3c94)
+![Dominion2](https://github.com/MathisChevallier/Dominion_Game/assets/118447835/8504b7f4-a8a4-4f46-8446-43bf287fa22c)
 
-<img width="1024" alt="Dominion4" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/f7733e23-4a46-45d5-b1ef-1dcd031aa9d5">
+<img width="1024" alt="Dominion4" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/ead49d31-af86-438d-87da-cab598126050">
+
 
 Interface console:
 
 Création d'une partie
-<img width="1024" alt="Dominion6" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/ce24c467-62f1-4ba2-9cff-6da7a359176f">
+<img width="1024" alt="Dominion6" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/98500259-02f0-4950-9732-3044c448c94e">
+
 
 Main d'un joueur au début de son tour
-<img width="1024" alt="Dominion7" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/48a21fa0-5491-42ce-b095-d0e3cc99b48a">
+<img width="1024" alt="Dominion7" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/ca461098-36c7-448e-88c9-3ddc089572e0">
 
 Ligne d'achat avec caractéristiques et résumé explictaif de chaque carte 
-<img width="1024" alt="Dominion8" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/4fa5b5eb-6052-4b4e-bb81-11af3283d30e">
+<img width="960" alt="Dominion8" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/89a3a75c-3cd2-4419-ae67-f08ad50a4d76">
+
 
 Affichage des cartes disponible achetable par le joueur pour faciliter la lecture
-<img width="1024" alt="Dominion9" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/133f2ca3-344a-40fb-819e-0d2af0aa6412">
+<img width="953" alt="Dominion9" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/ac45e134-f881-4e26-a55d-3f134986b899">
+
