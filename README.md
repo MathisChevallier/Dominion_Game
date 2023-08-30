@@ -25,7 +25,7 @@ Il faut au préalable avoir valgrind d'installé.
 
 
 Interface graphique:
-<img width="1024" alt="Dominion1" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/014937b8-18b3-492f-9422-fb5257def9b9">
+<img width="1024" alt="Dominion1" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/9d4639fa-b356-4fb5-89e5-ee37c940def1">
 
 ![Dominion2](https://github.com/MathisChevallier/Dominion_Game/assets/118447835/2868a707-94b5-4887-8198-e61b8aba3c94)
 
