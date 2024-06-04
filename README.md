@@ -14,6 +14,8 @@ Il est possible de jouer contre l'ordinateur, qui s'adapte à chaque tour aux co
 
 ![Règles du jeu](Domion_base_regles_vf.pdf)
 
+![Diagramme UML](Diagramme_UML.pdf)
+
 ## Commande pour lancer le jeu :
  
 Téléchargez les archives 'src' et 'dominion' puis effectuez la commande "make run". Le code se compilera si besoin et le jeu se lancera. Il ne vous reste plus qu'à suivre les instructions à l'écran.
