@@ -14,7 +14,7 @@ Il est possible de jouer contre l'ordinateur, qui s'adapte à chaque tour aux co
 
 ![Règles du jeu](Domion_base_regles_vf.pdf)
 
-![Diagramme UML](Diagramme_UML.pdf)
+![Diagramme UML](UML_Dominion.pdf)
 
 ## Commande pour lancer le jeu :
  
