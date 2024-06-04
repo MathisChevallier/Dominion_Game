@@ -48,3 +48,7 @@ Ligne d'achat avec caractéristiques et résumé explictaif de chaque carte
 Affichage des cartes disponible achetable par le joueur pour faciliter la lecture
 <img width="953" alt="Dominion9" src="https://github.com/MathisChevallier/Dominion_Game/assets/118447835/ac45e134-f881-4e26-a55d-3f134986b899">
 
+## Diagramme UML :
+
+![image](https://github.com/MathisChevallier/Dominion_Game/assets/118447835/77505113-c1eb-4f83-a83e-1be8aa441ce3)
+
